@@ -1,0 +1,210 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&display=swap");
+.title {
+  color: rgb(251, 17, 142);
+  position: relative;
+  left: 100px;
+}
+body {
+}
+#stableDeposit {
+  position: relative;
+  right: -0%;
+  top: 0%;
+  background: rgb(244, 238, 238);
+  border-radius: 16px;
+  border: 1px solid rgba(94, 104, 135, 0.24);
+  padding: 8px;
+  height: 300px;
+  width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-shrink: 3;
+}
+#stableDeposit h3 {
+  font-size: 30px;
+  font-weight: 400;
+  position: relative;
+  left: 20%;
+  top: -4%;
+  color: rgb(0, 0, 0);
+}
+#stableDeposit h2 {
+  font-size: 20px;
+  font-weight: 400;
+  position: relative;
+  left: 50%px;
+  top: -28%;
+  color: rgb(10, 10, 10);
+}
+#stableDeposit #depositButton {
+  background-color: rgb(255, 255, 255);
+  font-size: 25px;
+  border-radius: 33px;
+  width: 150px;
+  border-color: rgb(0, 0, 0);
+  padding: 1px 1px 1px 1px;
+  position: relative;
+  left: 10%;
+  bottom: 25%;
+  cursor: pointer;
+}
+#stableDeposit #withdrawButton {
+  background-color: rgb(255, 255, 255);
+  font-size: 25px;
+  border-radius: 33px;
+  padding: 1px 1px 1px 1px;
+  position: relative;
+  width: 150px;
+  left: 50%;
+  bottom: 39%;
+  margin-bottom: 2px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+#ethAmount {
+  position: relative;
+  height: 30px;
+  width: 150px;
+  margin: none;
+  left: 30%;
+  bottom: 30%;
+  margin-bottom: 2px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+#connectButton {
+  background-color: rgb(236, 197, 206);
+  border: none;
+  border-radius: 33px;
+  padding: 7px 10px 7px 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  position: relative;
+  left: 2%;
+  top: -5px;
+  color: rgb(251, 17, 142);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+  transition: color 125ms ease-in 0s;
+  text-overflow: ellipsis;
+  min-width: 2%;
+  width: 121px;
+  overflow: hidden;
+  white-space: revert;
+  z-index: 1;
+}
+
+#Apy {
+  border: none;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 600;
+  font-size: 20px;
+  position: relative;
+  left: -18%;
+  top: -6.5%;
+  background: none;
+}
+#bestStable {
+  border: none;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 600;
+  font-size: 20px;
+  position: relative;
+  left: -5%;
+  top: 4%;
+  background: none;
+}
+#tamaz {
+  position: relative;
+  left: 22px;
+  top: 81px;
+}
+
+/* Dropdown Button */
+.btn1 {
+  background-color: white;
+  width: 5px;
+  color: black;
+  padding: 16px;
+  font-size: 20px;
+  border: none;
+  font-weight: 600;
+  position: absolute;
+  display: flex;
+  top: -37%;
+  margin: 1 auto;
+  left: -8%;
+  font-family: "Times New Roman", Times, serif;
+  z-index: 1;
+}
+.btn2 {
+  background-color: white;
+  color: black;
+  padding-bottom: 20px;
+  padding-top: 1px;
+  font-size: 16px;
+  font-weight: 800;
+  border: none;
+  top: 8px;
+  outline: none;
+}
+
+.btn2 :hover {
+  color: #0b7dda;
+}
+/* .btn {
+  font-size: 12px;
+} */
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: absolute;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: none;
+  min-width: 160px;
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content button {
+  background-color: white;
+  color: black;
+  padding: 6px 8px;
+  text-decoration: none;
+  display: block;
+  border: none;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content button:hover {
+  background-color: #9fc4e2;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.btn:hover,
+.dropdown:hover .btn {
+  background-color: #0b7dda;
+}
+.network_connection {
+  position: relative;
+  right: -80%;
+  top: -60px;
+  margin: 0 auto;
+  /* display: flex; */
+  /* flex-direction: column;
+  justify-content: flex-start;
+  flex-shrink: 0; */
+}
