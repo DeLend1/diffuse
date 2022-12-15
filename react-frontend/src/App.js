@@ -1,10 +1,13 @@
 import { useState, useCallback } from "react";
+
 import ConnecWallettButton from "./components/header/ConnectWalletButton";
-import APY from "./components/body/APY";
+import APY from "./components/body/APY/APY";
+import Body from "./components/body/Body";
+
 function App() {
   const [accountAddress, setAccountAddress] = useState("");
   const [networkChainId, setNetworkChainId] = useState("");
-
+  console.log(networkChainId);
   const addressChanged = useCallback((address) => {
     setAccountAddress(address);
   }, []);
@@ -24,6 +27,7 @@ function App() {
       </div>
       <div className="body">
         <APY />
+        <Body chainId={networkChainId} />
       </div>
     </div>
   );
