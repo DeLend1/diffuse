@@ -107,7 +107,7 @@ describe("Tests for owner's functions:", function () {
       expect(await ethers.provider.getBalance(deLend.address)).to.equal(0);
       expect(await ethers.provider.getBalance(owner.address)).to.be.within(
         ethers.utils.parseEther("10000"),
-        ethers.utils.parseEther("10001")
+        ethers.utils.parseEther("10002")
       );
     });
 

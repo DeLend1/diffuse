@@ -91,7 +91,7 @@ async function parser() {
 
   //save filtered data in json
   fs.writeFileSync(
-    "../react-frontend/src/components/body/coinsData.json",
+    "../react-frontend/src/utils/coinsData.json",
     JSON.stringify(filteredData)
   );
 }

@@ -5,15 +5,17 @@ import {
   ethABI,
   optContract,
   optABI,
-  tokenVariables,
   polABI,
   polContract,
-} from "./constants.js";
+} from "../../../utils/aaveLendingPools.js";
+import chainIds from "../../../utils/chainIds";
 import { ethers } from "ethers";
+import apyTokens from "../../../utils/apyTokens.json";
 
-export default function APY() {
+export default function APY({ updateBestToken, updateBestChain }) {
   const [bestApy, setBestApy] = useState("");
   const [bestAsset, setBestAsset] = useState("");
+  const [bestChain, setBestChain] = useState("");
   useEffect(() => {
     (async function () {
       const ethAPY = await getAPYETH();
@@ -21,11 +23,21 @@ export default function APY() {
       const polAPY = await getAPYPOL();
       const [apy, asset] = getBestAPY(ethAPY, optAPY, polAPY);
       setBestApy(apy);
-      setBestAsset(asset);
+      setBestAsset(asset[0]);
+      setBestChain(asset[1]);
+      updateBestToken(asset[0]);
+      updateBestChain(asset[1]);
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
-    <h3> {bestApy ? `Best APY is %${bestApy} ${bestAsset}` : "Loading..."}</h3>
+    <h3>
+      {" "}
+      {bestApy
+        ? `Best APY is %${bestApy} ${bestAsset} ${chainIds[bestChain]}`
+        : "Loading..."}
+    </h3>
   );
 }
 
@@ -44,49 +56,39 @@ const contractOPT = new ethers.Contract(optContract, optABI, providerOPT);
 const contractPOL = new ethers.Contract(polContract, polABI, providerPOL);
 
 async function getAPYETH() {
-  const assets = [
-    "ethUSDT",
-    "ethWETH",
-    "ethUSDC",
-    "ethDAI",
-    "ethBUSD",
-    "ethLUSD",
-  ];
-  const currentAPYETH = await Promise.all([
-    getAPY(contractETH, tokenVariables.ethUSDT, 3),
-    getAPY(contractETH, tokenVariables.ethWETH, 3),
-    getAPY(contractETH, tokenVariables.ethUSDC, 3),
-    getAPY(contractETH, tokenVariables.ethDAI, 3),
-    getAPY(contractETH, tokenVariables.ethBUSD, 3),
-    getAPY(contractETH, tokenVariables.ethLUSD, 3),
-  ]);
+  const assets = apyTokens["1"];
+  const currentAPYETH = await Promise.all(
+    Object.values(assets).map((element) => {
+      return getAPY(contractETH, element, 3);
+    })
+  );
   let maxAPYIndex = currentAPYETH.indexOf(Math.max(...currentAPYETH));
   let result = {};
-  result[currentAPYETH[maxAPYIndex]] = assets[maxAPYIndex];
+  result[currentAPYETH[maxAPYIndex]] = [Object.keys(assets)[maxAPYIndex], 1];
   return result;
 }
 async function getAPYOPT() {
-  const assets = ["optUSDT", "optDAI", "optUSDC"];
-  const currentAPYOPT = await Promise.all([
-    getAPY(contractOPT, tokenVariables.optUSDT, 5),
-    getAPY(contractOPT, tokenVariables.optDAI, 5),
-    getAPY(contractOPT, tokenVariables.optUSDC, 5),
-  ]);
-  const maxAPYIndex = currentAPYOPT.indexOf(Math.max(...currentAPYOPT));
+  const assets = apyTokens["10"];
+  const currentAPYOPT = await Promise.all(
+    Object.values(assets).map((element) => {
+      return getAPY(contractOPT, element, 5);
+    })
+  );
+  let maxAPYIndex = currentAPYOPT.indexOf(Math.max(...currentAPYOPT));
   let result = {};
-  result[currentAPYOPT[maxAPYIndex]] = assets[maxAPYIndex];
+  result[currentAPYOPT[maxAPYIndex]] = [Object.keys(assets)[maxAPYIndex], 10];
   return result;
 }
 async function getAPYPOL() {
-  const assets = ["polUSDC", "polDAI", "polUSDT"];
-  const currentAPYPOL = await Promise.all([
-    getAPY(contractPOL, tokenVariables.polUSDT, 2),
-    getAPY(contractPOL, tokenVariables.polDAI, 2),
-    getAPY(contractPOL, tokenVariables.polUSDC, 2),
-  ]);
+  const assets = apyTokens["137"];
+  const currentAPYPOL = await Promise.all(
+    Object.values(assets).map((element) => {
+      return getAPY(contractPOL, element, 2);
+    })
+  );
   let maxAPYIndex = currentAPYPOL.indexOf(Math.max(...currentAPYPOL));
   let result = {};
-  result[currentAPYPOL[maxAPYIndex]] = assets[maxAPYIndex];
+  result[currentAPYPOL[maxAPYIndex]] = [Object.keys(assets)[maxAPYIndex], 137];
   return result;
 }
 function getBestAPY(bestETH, bestOPT, bestPOL) {
@@ -99,7 +101,7 @@ function getBestAPY(bestETH, bestOPT, bestPOL) {
 }
 
 async function getAPY(contract, address, index) {
-  const data = await contract.getReserveData(address); //getReserveData(ethUSDT);
+  const data = await contract.getReserveData(address);
   let APY = ethers.utils.formatEther(data[index]._hex);
   APY = APY / 10000000;
   APY = +APY.toFixed(2);

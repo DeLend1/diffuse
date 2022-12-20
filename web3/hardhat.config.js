@@ -32,7 +32,7 @@ module.exports = {
       blockConfirmations: 1,
       forking: {
         url: POLYGON_RPC_URL,
-        blockNumber: 35328453,
+        blockNumber: 37067110,
       },
     },
     goerli: {

@@ -1,7 +1,6 @@
 import { useState, useCallback } from "react";
 
 import ConnecWallettButton from "./components/header/ConnectWalletButton";
-import APY from "./components/body/APY/APY";
 import Body from "./components/body/Body";
 
 function App() {
@@ -26,8 +25,7 @@ function App() {
         />
       </div>
       <div className="body">
-        <APY />
-        <Body chainId={networkChainId} />
+        <Body chainId={networkChainId} accountAddress={accountAddress} />
       </div>
     </div>
   );
