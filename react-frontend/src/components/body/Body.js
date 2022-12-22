@@ -6,6 +6,7 @@ import Approve from "./Approve";
 import CoinSelect from "./CoinSelect";
 import ValueInput from "./ValueInput";
 import Deposit from "./Deposit";
+import Withdraw from "./Withdraw";
 
 import abiERC20 from "../../utils/abiERC20.json";
 import protocolAddresses from "../../utils/protocolAddresses.json";
@@ -117,17 +118,36 @@ function Body({ chainId, accountAddress }) {
           addUserAllowance={addUserAllowanceHandler}
         />
       ) : null}
-      {chainId === "" ? null : value === "" ? null : chainId !==
+      {chainId === "" ? null : value === "" || value === 0 ? null : chainId !==
         bestApyChain ? (
-        <p>Select chain with best APY or use bridge</p>
+        <div className="buttons">
+          <p>
+            If you want to make a deposit, then choose a chain with the best APY
+            or use a bridge!
+          </p>
+          <Withdraw
+            userToken={userToken}
+            protocolAddress={protocolAddress}
+            chainId={chainId}
+            value={value}
+          />
+        </div>
       ) : approvalBalance >= value && userBalance >= value ? (
-        <Deposit
-          userTokenAddress={userToken.contractAddress}
-          bestApyToken={apyTokens[bestApyChain][bestApyToken]}
-          protocolAddress={protocolAddress}
-          chainId={chainId}
-          value={value}
-        />
+        <div className="buttons">
+          <Deposit
+            userTokenAddress={userToken.contractAddress}
+            bestApyToken={apyTokens[bestApyChain][bestApyToken]}
+            protocolAddress={protocolAddress}
+            chainId={chainId}
+            value={value}
+          />
+          <Withdraw
+            userToken={userToken}
+            protocolAddress={protocolAddress}
+            chainId={chainId}
+            value={value}
+          />
+        </div>
       ) : (
         <p>You don't have enough funds!</p>
       )}

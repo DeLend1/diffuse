@@ -1,5 +1,7 @@
 const fetch = require("node-fetch");
 const fs = require("fs");
+const alphaTokens = require("../react-frontend/src/utils/alphaAPYTokens.json");
+
 async function parser() {
   //get list of all coins
   const responseCoins = await fetch(
@@ -89,6 +91,31 @@ async function parser() {
     delete coin["rating"];
   });
 
+  //added alpha tokens
+  for (let token in alphaTokens["1"]) {
+    const coin = {
+      value: token,
+      label: token.toUpperCase(),
+      contractAddress: alphaTokens["1"][token],
+    };
+    filteredData[1].push(coin);
+  }
+  for (let token in alphaTokens["10"]) {
+    const coin = {
+      value: token,
+      label: token.toUpperCase(),
+      contractAddress: alphaTokens["10"][token],
+    };
+    filteredData[10].push(coin);
+  }
+  for (let token in alphaTokens["137"]) {
+    const coin = {
+      value: token,
+      label: token.toUpperCase(),
+      contractAddress: alphaTokens["137"][token],
+    };
+    filteredData[137].push(coin);
+  }
   //save filtered data in json
   fs.writeFileSync(
     "../react-frontend/src/utils/coinsData.json",
