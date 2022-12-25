@@ -22,12 +22,12 @@ function Deposit({
         await contract.supplyFromToken(
           value,
           userTokenAddress,
-          bestApyToken, //change to APY token
+          bestApyToken,
           "3000"
         );
       } else {
         await contract.supplyFromETH(bestApyToken, "3000", {
-          value: String(value),
+          value: value,
         });
       }
     }

@@ -56,6 +56,7 @@ const chainIds = {
   8217: "klaytn",
   9001: "evmos",
   10000: "smartbch",
+  31337: "Fork polygon",
   32520: "bitgert",
   32659: "fusion",
   42161: "Arbitrum",

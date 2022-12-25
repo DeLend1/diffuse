@@ -38,14 +38,19 @@ function Body({ chainId, accountAddress }) {
           provider
         );
         const decimals = await contract.decimals();
-        setValue(userValue * 10 ** decimals);
+        const convertValue = ethers.utils.parseUnits(
+          userValue.toString(),
+          decimals
+        );
+        setValue(convertValue);
       } else {
-        setValue(userValue * 10 ** 18);
+        const convertValue = ethers.utils.parseEther(userValue.toString());
+        setValue(convertValue);
       }
     } catch (error) {
       const decimals = 1;
-      console.log(error);
-      setValue(userValue * 10 ** decimals);
+      const convertValue = ethers.utils.parseUnits(String(0), decimals);
+      setValue(convertValue);
     }
   };
 
@@ -72,9 +77,7 @@ function Body({ chainId, accountAddress }) {
         );
         setApprovalBalance(currentAllowance);
       } else if (userToken.contractAddress === "0x") {
-        setApprovalBalance(
-          "115792089237316195423570985008687907853269984665640564039457584007913129639935"
-        );
+        setApprovalBalance(ethers.utils.parseUnits("1000000000", 18));
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -111,7 +114,9 @@ function Body({ chainId, accountAddress }) {
       />
       <CoinSelect chainId={chainId} addUserToken={addUserTokenHandler} />
       <ValueInput addUserValue={addUserValueHandler} />
-      {approvalBalance < value && userToken.contractAddress !== "0x" ? (
+      {value !== "" &&
+      approvalBalance.lt(value) &&
+      userToken.contractAddress !== "0x" ? (
         <Approve
           tokenAddress={userToken.contractAddress}
           protocolAddress={protocolAddress}
@@ -119,7 +124,7 @@ function Body({ chainId, accountAddress }) {
         />
       ) : null}
       {chainId === "" ? null : value === "" || value === 0 ? null : chainId !==
-        bestApyChain ? (
+        bestApyChain ? ( //for test set 31337
         <div className="buttons">
           <p>
             If you want to make a deposit, then choose a chain with the best APY
@@ -132,7 +137,7 @@ function Body({ chainId, accountAddress }) {
             value={value}
           />
         </div>
-      ) : approvalBalance >= value && userBalance >= value ? (
+      ) : approvalBalance.gte(value) && userBalance.gte(value) ? (
         <div className="buttons">
           <Deposit
             userTokenAddress={userToken.contractAddress}

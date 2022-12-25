@@ -16,12 +16,12 @@ function Withdraw({ userToken, protocolAddress, chainId, value }) {
         userToken.contractAddress !== "0x" &&
         alphaAPYTokens[chainId][userToken.value] !== undefined
       ) {
-        const resultTokenName = userToken.valuestr.replace("a", "");
+        const resultTokenName = userToken.value.replace("a", "");
         const resultTokenAddress = apyTokens[chainId][resultTokenName];
         await contract.withdraw(
           resultTokenAddress,
           userToken.contractAddress,
-          String(value)
+          value
         );
       } else {
         window.alert(`Please choose alpha token!
