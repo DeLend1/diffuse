@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 
 import APY from "./APY/APY";
-import Approve from "./Approve";
-import CoinSelect from "./CoinSelect";
-import ValueInput from "./ValueInput";
-import Deposit from "./Deposit";
-import Withdraw from "./Withdraw";
+import Approve from "./Approve/Approve";
+import CoinSelect from "./CoinSelect/CoinSelect";
+import ValueInput from "./ValueInput/ValueInput";
+import Deposit from "./Deposit/Deposit";
+import Withdraw from "./Withdraw/Withdraw";
 
 import abiERC20 from "../../utils/abiERC20.json";
 import protocolAddresses from "../../utils/protocolAddresses.json";
@@ -143,7 +143,6 @@ function Body({ chainId, accountAddress }) {
             userTokenAddress={userToken.contractAddress}
             bestApyToken={apyTokens[bestApyChain][bestApyToken]}
             protocolAddress={protocolAddress}
-            chainId={chainId}
             value={value}
           />
           <Withdraw

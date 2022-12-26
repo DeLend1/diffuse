@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import abiERC20 from "../../utils/abiERC20.json";
+import abiERC20 from "../../../utils/abiERC20.json";
 
 function Approve({ tokenAddress, protocolAddress, addUserAllowance }) {
   async function f_approve() {

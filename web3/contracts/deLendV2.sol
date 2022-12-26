@@ -9,7 +9,7 @@ import "../node_modules/@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Int
 import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 import "./interfaces/IWETH.sol";
 
-contract deLend is Ownable {
+contract deLendV2 is Ownable {
     ISwapRouter private immutable swapRouter;
     IWETH private immutable WETH;
     ILendingPoolAddressesProvider private immutable ADDRESSES_PROVIDER;
