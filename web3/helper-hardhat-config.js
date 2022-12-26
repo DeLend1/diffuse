@@ -1,5 +1,12 @@
 module.exports = {
   networkConfig: {
+    1: {
+      name: "mainnet",
+      swapRouter: "0xE592427A0AEce92De3Edee1F18E0157C05861564",
+      WETH: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+      poolAddressProvider: "0xB53C1a33016B2DC2fF3653530bfF1848a515c8c5",
+      AggregatorV3Interface: "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419",
+    },
     137: {
       name: "polygon",
       swapRouter: "0xE592427A0AEce92De3Edee1F18E0157C05861564",

@@ -7,6 +7,7 @@ require("@nomiclabs/hardhat-etherscan");
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
+const MAINNET_RPC_URL = process.env.MAINNET_RPC_URL;
 const GOERLI_RPC_URL = process.env.GOERLI_RPC_URL;
 const POLYGON_RPC_URL = process.env.POLYGON_RPC_URL;
 const MUMBAI_RPC_URL = process.env.MUMBAI_RPC_URL;
@@ -34,6 +35,11 @@ module.exports = {
         url: POLYGON_RPC_URL,
         blockNumber: 37067110,
       },
+    },
+    mainnet: {
+      chainid: 1,
+      url: MAINNET_RPC_URL,
+      accounts: [PRIVATE_KEY],
     },
     goerli: {
       chainid: 5,
