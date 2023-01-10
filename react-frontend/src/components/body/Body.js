@@ -17,6 +17,7 @@ function Body({ chainId, accountAddress }) {
   const [userToken, setUserToken] = useState("");
   const [approvalBalance, setApprovalBalance] = useState("");
   const [userBalance, setUserBalance] = useState("");
+  const [convertUserBalance, setConvertUserBalance] = useState("");
   const [bestApyToken, setbestApyToken] = useState("");
   const [bestApyChain, setbestApyChain] = useState("");
 
@@ -97,15 +98,23 @@ function Body({ chainId, accountAddress }) {
           provider
         );
         const currentBalance = await contract.balanceOf(accountAddress);
+        const decimals = await contract.decimals();
+        const convertValue = Number(
+          ethers.utils.formatUnits(currentBalance.toString(), decimals)
+        ).toFixed(3);
         setUserBalance(currentBalance);
+        setConvertUserBalance(convertValue);
       } else if (userToken.contractAddress === "0x") {
         const currentBalance = await provider.getBalance(accountAddress);
+        const convertValue = Number(
+          ethers.utils.formatUnits(currentBalance.toString())
+        ).toFixed(3);
         setUserBalance(currentBalance);
+        setConvertUserBalance(convertValue);
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userToken]);
-
   return (
     <>
       <APY
@@ -114,6 +123,9 @@ function Body({ chainId, accountAddress }) {
       />
       <CoinSelect chainId={chainId} addUserToken={addUserTokenHandler} />
       <ValueInput addUserValue={addUserValueHandler} />
+      {convertUserBalance !== "" && userToken && value ? (
+        <p>{`Your balance is ${convertUserBalance} ${userToken.label}`}</p>
+      ) : null}
       {value !== "" &&
       approvalBalance.lt(value) &&
       userToken.contractAddress !== "0x" ? (

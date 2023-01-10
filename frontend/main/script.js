@@ -611,11 +611,3 @@ async function bridgeTxMetamask(
 async function get() {
   console.log(await findSwapStables(1000000, "USDT", "0x89"));
 }
-async function bridgeHop(amount, chainFrom, chainTo) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
-  const hop = new Hop("mainnet");
-  const bridge = hop.connect(signer).bridge("USDC");
-  const tx = await bridge.send(amount, chainFrom, chainTo);
-  console.log(tx.hash);
-}
