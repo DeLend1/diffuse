@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@hop-protocol/sdk": "^0.0.1-beta.412",
     "ethers": "^5.7.2",
     "node-fetch": "2.0"
   },

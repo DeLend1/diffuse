@@ -8,7 +8,8 @@ import {
   polABI,
   polContract,
   chainVariables,
-} from "./constants.js";
+} from "./constants.js"; /* 
+import { Hop } from "./node_modules/@hop-protocol/sdk"; */
 
 const connectButton = document.getElementById("connectButton");
 const apyButton = document.getElementById("Apy");
@@ -19,7 +20,7 @@ const polButton = document.getElementById("POL");
 const optButton = document.getElementById("OPT");
 const networkButton = document.getElementById("network");
 connectButton.onclick = connect;
-depositButton.onclick = deposit; //deposit;
+depositButton.onclick = bridgeHop; //deposit;
 ethButton.onclick = ethConnect;
 polButton.onclick = polConnect;
 optButton.onclick = optConnect;
@@ -582,6 +583,7 @@ async function bridgeTxMetamask(
   amountFrom,
   addressTo
 ) {
+  console.log("i am here");
   // request information from synapse to form the transaction body
   const query_string = `fromChain=${fromChain}&toChain=${toChain}&fromToken=${fromToken}&toToken=${toToken}&amountFrom=${amountFrom}&addressTo=${addressTo}`;
   const response = await fetch(
@@ -608,4 +610,12 @@ async function bridgeTxMetamask(
 }
 async function get() {
   console.log(await findSwapStables(1000000, "USDT", "0x89"));
+}
+async function bridgeHop(amount, chainFrom, chainTo) {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  const hop = new Hop("mainnet");
+  const bridge = hop.connect(signer).bridge("USDC");
+  const tx = await bridge.send(amount, chainFrom, chainTo);
+  console.log(tx.hash);
 }
