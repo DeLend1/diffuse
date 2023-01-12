@@ -20,8 +20,9 @@ function Withdraw({ userToken, protocolAddress, chainId, value }) {
         value
       );
     } else {
-      window.alert(`Please choose alpha token!
-        For example, if you want to return USDT, then select aUSDT.`);
+      window.alert(
+        "Please choose alpha token!\nFor example, if you want to return USDT, then select aUSDT."
+      );
     }
   }
 

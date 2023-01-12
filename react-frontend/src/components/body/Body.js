@@ -7,6 +7,7 @@ import CoinSelect from "./CoinSelect/CoinSelect";
 import ValueInput from "./ValueInput/ValueInput";
 import Deposit from "./Deposit/Deposit";
 import Withdraw from "./Withdraw/Withdraw";
+import Bridge from "./Bridge/Bridge";
 
 import abiERC20 from "../../utils/abiERC20.json";
 import protocolAddresses from "../../utils/protocolAddresses.json";
@@ -138,14 +139,17 @@ function Body({ chainId, accountAddress }) {
       {chainId === "" ? null : value === "" || value === 0 ? null : chainId !==
         bestApyChain ? ( //for test set 31337
         <div className="buttons">
-          <p>
-            If you want to make a deposit, then choose a chain with the best APY
-            or use a bridge!
-          </p>
           <Withdraw
             userToken={userToken}
             protocolAddress={protocolAddress}
             chainId={chainId}
+            value={value}
+          />
+          <Bridge
+            userToken={userToken}
+            bestApyChain={bestApyChain}
+            chainId={chainId}
+            accountAddress={accountAddress}
             value={value}
           />
         </div>
