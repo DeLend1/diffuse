@@ -33,6 +33,12 @@ const ConnectWalletButton = ({ onChangeAddress, onChangeChainId }) => {
   };
 
   useEffect(() => {
+    onChangeAddress(window.ethereum?.selectedAddress);
+    onChangeChainId(Number(window.ethereum?.networkVersion));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     const eventName = `accountsChanged`;
     if (!isMetaMaskInstalled()) {
       return;

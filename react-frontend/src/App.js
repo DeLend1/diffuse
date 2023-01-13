@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 
 import ConnecWallettButton from "./components/header/ConnectWalletButton";
 import Body from "./components/body/Body";
@@ -6,14 +6,14 @@ import Body from "./components/body/Body";
 function App() {
   const [accountAddress, setAccountAddress] = useState("");
   const [networkChainId, setNetworkChainId] = useState("");
-  console.log(networkChainId);
-  const addressChanged = useCallback((address) => {
-    setAccountAddress(address);
-  }, []);
 
-  const chainIdChanged = useCallback((networkChainId) => {
+  const addressChanged = (address) => {
+    setAccountAddress(address);
+  };
+
+  const chainIdChanged = (networkChainId) => {
     setNetworkChainId(networkChainId);
-  }, []);
+  };
 
   return (
     <div className="App">

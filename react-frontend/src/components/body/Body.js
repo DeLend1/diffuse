@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ethers } from "ethers";
+import { ethers, constants } from "ethers";
 
 import APY from "./APY/APY";
 import Approve from "./Approve/Approve";
@@ -16,7 +16,7 @@ import apyTokens from "../../utils/apyTokens.json";
 function Body({ chainId, accountAddress }) {
   const [value, setValue] = useState("");
   const [userToken, setUserToken] = useState("");
-  const [approvalBalance, setApprovalBalance] = useState("");
+  const [approvalBalance, setApprovalBalance] = useState(constants.Zero);
   const [userBalance, setUserBalance] = useState("");
   const [convertUserBalance, setConvertUserBalance] = useState("");
   const [bestApyToken, setbestApyToken] = useState("");
@@ -64,22 +64,26 @@ function Body({ chainId, accountAddress }) {
   useEffect(() => {
     (async function () {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      if (
-        userToken.contractAddress !== "0x" &&
-        userToken.contractAddress !== undefined
-      ) {
-        const contract = new ethers.Contract(
-          userToken.contractAddress,
-          abiERC20,
-          provider
-        );
-        const currentAllowance = await contract.allowance(
-          accountAddress,
-          protocolAddress
-        );
-        setApprovalBalance(currentAllowance);
-      } else if (userToken.contractAddress === "0x") {
-        setApprovalBalance(ethers.utils.parseUnits("1000000000", 18));
+      try {
+        if (
+          userToken.contractAddress !== "0x" &&
+          userToken.contractAddress !== undefined
+        ) {
+          const contract = new ethers.Contract(
+            userToken.contractAddress,
+            abiERC20,
+            provider
+          );
+          const currentAllowance = await contract.allowance(
+            accountAddress,
+            protocolAddress
+          );
+          setApprovalBalance(currentAllowance);
+        } else if (userToken.contractAddress === "0x") {
+          setApprovalBalance(ethers.utils.parseUnits("1000000000", 18));
+        }
+      } catch (err) {
+        console.log("Refresh approval balance error!");
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -145,13 +149,15 @@ function Body({ chainId, accountAddress }) {
             chainId={chainId}
             value={value}
           />
-          <Bridge
-            userToken={userToken}
-            bestApyChain={bestApyChain}
-            chainId={chainId}
-            accountAddress={accountAddress}
-            value={value}
-          />
+          {value !== "" && (
+            <Bridge
+              userToken={userToken}
+              bestApyChain={bestApyChain}
+              chainId={chainId}
+              accountAddress={accountAddress}
+              value={value}
+            />
+          )}
         </div>
       ) : approvalBalance.gte(value) && userBalance.gte(value) ? (
         <div className="buttons">

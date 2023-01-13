@@ -12,7 +12,7 @@ const Bridge = ({
   accountAddress,
   value,
 }) => {
-  const [approvalBalance, setApprovalBalance] = useState(ethers.constants.Zero);
+  const [approvalBalance, setApprovalBalance] = useState(constants.Zero);
   const [approvalAddress, setApprovalAddress] = useState("");
   const [txStatus, setTxStatus] = useState(false);
   const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
@@ -20,30 +20,34 @@ const Bridge = ({
   const hop = new Hop("mainnet", signer);
   const bridge = hop.connect(signer).bridge(userToken.label);
 
+  const possibleBridgeTokens = ["USDC", "USDT", "DAI", "ETH"];
+
   useEffect(() => {
     (async function () {
-      const bridgeAddress = await bridge.getSendApprovalAddress(
-        Chain[chainIds[chainId]]
-      );
-      if (
-        userToken.contractAddress !== "0x" &&
-        userToken.contractAddress !== undefined
-      ) {
-        const contract = new ethers.Contract(
-          userToken.contractAddress,
-          abiERC20,
-          provider
+      try {
+        const bridgeAddress = await bridge.getSendApprovalAddress(
+          Chain[chainIds[chainId]]
         );
-        const currentAllowance = await contract.allowance(
-          accountAddress,
-          bridgeAddress
-        );
-        setApprovalBalance(currentAllowance);
-        setApprovalAddress(bridgeAddress);
-      } else if (userToken.contractAddress === "0x") {
-        setApprovalBalance(constants.MaxUint256);
-        setApprovalAddress(bridgeAddress);
-      }
+        if (
+          userToken.contractAddress !== "0x" &&
+          userToken.contractAddress !== undefined
+        ) {
+          const contract = new ethers.Contract(
+            userToken.contractAddress,
+            abiERC20,
+            provider
+          );
+          const currentAllowance = await contract.allowance(
+            accountAddress,
+            bridgeAddress
+          );
+          setApprovalBalance(currentAllowance);
+          setApprovalAddress(bridgeAddress);
+        } else if (userToken.contractAddress === "0x") {
+          setApprovalBalance(constants.MaxUint256);
+          setApprovalAddress(bridgeAddress);
+        }
+      } catch (err) {}
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userToken]);
@@ -75,26 +79,31 @@ const Bridge = ({
   }
 
   return (
-    <div className="bridge">
-      {!txStatus && (
-        <p>
-          If you want to make a deposit, then choose a chain with the best APY
-          or use a bridge!
-        </p>
-      )}
-      {approvalBalance.lt(value) ? (
-        <button onClick={f_approve}>Approve bridge</button>
-      ) : !txStatus ? (
-        <button onClick={makeBridge}>Make bridge transaction</button>
-      ) : (
-        <p>
-          Transaction was complete!
-          <br />
-          Please change the network and wait until the tokens are credited to
-          your balance!
-        </p>
-      )}
-    </div>
+    <>
+      {possibleBridgeTokens.indexOf(userToken.label) !== -1 &&
+      !value.eq(constants.Zero) ? (
+        <div className="bridge">
+          {!txStatus && (
+            <p>
+              If you want to make a deposit, then choose a chain with the best
+              APY or use a bridge!
+            </p>
+          )}
+          {approvalBalance.lt(value) && value !== "" ? (
+            <button onClick={f_approve}>Approve bridge</button>
+          ) : !txStatus ? (
+            <button onClick={makeBridge}>Make bridge transaction</button>
+          ) : (
+            <p>
+              Transaction was complete!
+              <br />
+              Please change the network and wait until the tokens are credited
+              to your balance!
+            </p>
+          )}
+        </div>
+      ) : null}
+    </>
   );
 };
 

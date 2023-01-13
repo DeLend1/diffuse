@@ -7,16 +7,56 @@ function Deposit({ userTokenAddress, bestApyToken, protocolAddress, value }) {
     const signer = provider.getSigner();
     const contract = new ethers.Contract(protocolAddress, abiProtocol, signer);
     if (userTokenAddress !== "0x") {
-      await contract.supplyFromToken(
-        value,
-        userTokenAddress,
-        bestApyToken,
-        "3000"
-      );
+      try {
+        //fee0.3%
+        await contract.supplyFromToken(
+          value,
+          userTokenAddress,
+          bestApyToken,
+          "3000"
+        );
+      } catch (fee05) {
+        try {
+          await contract.supplyFromToken(
+            value,
+            userTokenAddress,
+            bestApyToken,
+            "5000"
+          );
+        } catch (fee1) {
+          try {
+            await contract.supplyFromToken(
+              value,
+              userTokenAddress,
+              bestApyToken,
+              "10000"
+            );
+          } catch (err) {
+            console.log(err);
+          }
+        }
+      }
     } else {
-      await contract.supplyFromETH(bestApyToken, "3000", {
-        value: value,
-      });
+      try {
+        //fee0.3%
+        await contract.supplyFromETH(bestApyToken, "3000", {
+          value: value,
+        });
+      } catch (fee05) {
+        try {
+          await contract.supplyFromETH(bestApyToken, "5000", {
+            value: value,
+          });
+        } catch (fee1) {
+          try {
+            await contract.supplyFromETH(bestApyToken, "10000", {
+              value: value,
+            });
+          } catch (err) {
+            console.log(err);
+          }
+        }
+      }
     }
   }
 

@@ -3419,11 +3419,6 @@
       "contractAddress": "0xdab529f40e671a1d4bf91361c21bf9f0c9712ab7"
     },
     {
-      "value": "matic",
-      "label": "MATIC",
-      "contractAddress": "0x0000000000000000000000000000000000001010"
-    },
-    {
       "value": "dai",
       "label": "DAI",
       "contractAddress": "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063"
@@ -4215,11 +4210,6 @@
       "value": "busd",
       "label": "BUSD",
       "contractAddress": "0xdab529f40e671a1d4bf91361c21bf9f0c9712ab7"
-    },
-    {
-      "value": "matic",
-      "label": "MATIC",
-      "contractAddress": "0x0000000000000000000000000000000000001010"
     },
     {
       "value": "dai",

@@ -4,6 +4,7 @@ function CoinSelect({ chainId, addUserToken }) {
   const handleChange = (selectedOption) => {
     addUserToken(selectedOption);
   };
+
   return <Select options={options[chainId]} onChange={handleChange} />;
 }
 
