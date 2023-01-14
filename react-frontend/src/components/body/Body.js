@@ -95,7 +95,8 @@ function Body({ chainId, accountAddress }) {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       if (
         userToken.contractAddress !== "0x" &&
-        userToken.contractAddress !== undefined
+        userToken.contractAddress !== undefined &&
+        userToken.contractAddress !== ""
       ) {
         const contract = new ethers.Contract(
           userToken.contractAddress,
@@ -120,6 +121,14 @@ function Body({ chainId, accountAddress }) {
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userToken]);
+
+  //refresh input data
+  useEffect(() => {
+    setValue("");
+    setUserBalance("");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chainId, accountAddress]);
+
   return (
     <>
       <APY
@@ -140,8 +149,9 @@ function Body({ chainId, accountAddress }) {
           addUserAllowance={addUserAllowanceHandler}
         />
       ) : null}
-      {chainId === "" ? null : value === "" || value === 0 ? null : chainId !==
-        bestApyChain ? ( //for test set 31337
+      {chainId === "" ? null : value === "" ||
+        value === 0 ||
+        value.eq(constants.Zero) ? null : chainId !== bestApyChain ? ( //for test set 31337
         <div className="buttons">
           <Withdraw
             userToken={userToken}

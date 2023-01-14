@@ -15,9 +15,18 @@ const Bridge = ({
   const [approvalBalance, setApprovalBalance] = useState(constants.Zero);
   const [approvalAddress, setApprovalAddress] = useState("");
   const [txStatus, setTxStatus] = useState(false);
-  const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-  const signer = provider.getSigner();
-  const hop = new Hop("mainnet", signer);
+
+  let provider;
+  let signer;
+  let hop;
+
+  try {
+    provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+    signer = provider.getSigner();
+    hop = new Hop("mainnet", signer);
+  } catch (err) {
+    console.log("Bridge connection error");
+  }
   const bridge = hop.connect(signer).bridge(userToken.label);
 
   const possibleBridgeTokens = ["USDC", "USDT", "DAI", "ETH"];
