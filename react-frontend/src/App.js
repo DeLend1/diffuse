@@ -18,7 +18,8 @@ function App() {
   return (
     <div className="App">
       <div className="header">
-        <h1>deLend</h1>
+        <img src="react-frontend/public/IMG_0147.JPG"></img>
+        <h1>DeLend</h1>
         <ConnecWallettButton
           onChangeAddress={addressChanged}
           onChangeChainId={chainIdChanged}
