@@ -3,6 +3,7 @@ import abiProtocol from "../../../utils/abiProtocol.json";
 
 function Deposit({ userTokenAddress, bestApyToken, protocolAddress, value }) {
   async function f_deposit() {
+    let txSuccess = false;
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(protocolAddress, abiProtocol, signer);
@@ -15,25 +16,57 @@ function Deposit({ userTokenAddress, bestApyToken, protocolAddress, value }) {
           bestApyToken,
           "3000"
         );
-      } catch (fee05) {
+        txSuccess = true;
+      } catch (err) {
+        if (err.reason === "user rejected transaction") {
+          txSuccess = true;
+        }
+      }
+      //fee1.0%
+      if (!txSuccess) {
         try {
           await contract.supplyFromToken(
             value,
             userTokenAddress,
             bestApyToken,
-            "5000"
+            "10000"
           );
-        } catch (fee1) {
-          try {
-            await contract.supplyFromToken(
-              value,
-              userTokenAddress,
-              bestApyToken,
-              "10000"
-            );
-          } catch (err) {
-            console.log(err);
+          txSuccess = true;
+        } catch (err) {
+          if (err.reason === "user rejected transaction") {
+            txSuccess = true;
           }
+        }
+      }
+      //fee0.05%
+      if (!txSuccess) {
+        try {
+          await contract.supplyFromToken(
+            value,
+            userTokenAddress,
+            bestApyToken,
+            "500"
+          );
+          txSuccess = true;
+        } catch (err) {
+          if (err.reason === "user rejected transaction") {
+            txSuccess = true;
+          }
+        }
+      }
+      //fee0.01%
+      if (!txSuccess) {
+        try {
+          await contract.supplyFromToken(
+            value,
+            userTokenAddress,
+            bestApyToken,
+            "100"
+          );
+          txSuccess = true;
+        } catch (err) {
+          console.log(err);
+          console.log(err.reason);
         }
       }
     } else {
@@ -42,19 +75,48 @@ function Deposit({ userTokenAddress, bestApyToken, protocolAddress, value }) {
         await contract.supplyFromETH(bestApyToken, "3000", {
           value: value,
         });
-      } catch (fee05) {
+        txSuccess = true;
+      } catch (err) {
+        if (err.reason === "user rejected transaction") {
+          txSuccess = true;
+        }
+      }
+      //fee1.0%
+      if (!txSuccess) {
         try {
-          await contract.supplyFromETH(bestApyToken, "5000", {
+          await contract.supplyFromETH(bestApyToken, "10000", {
             value: value,
           });
-        } catch (fee1) {
-          try {
-            await contract.supplyFromETH(bestApyToken, "10000", {
-              value: value,
-            });
-          } catch (err) {
-            console.log(err);
+          txSuccess = true;
+        } catch (err) {
+          if (err.reason === "user rejected transaction") {
+            txSuccess = true;
           }
+        }
+      }
+      //fee0.05%
+      if (!txSuccess) {
+        try {
+          await contract.supplyFromETH(bestApyToken, "500", {
+            value: value,
+          });
+          txSuccess = true;
+        } catch (err) {
+          if (err.reason === "user rejected transaction") {
+            txSuccess = true;
+          }
+        }
+      }
+      //fee0.01%
+      if (!txSuccess) {
+        try {
+          await contract.supplyFromETH(bestApyToken, "100", {
+            value: value,
+          });
+          txSuccess = true;
+        } catch (err) {
+          console.log(err);
+          console.log(err.reason);
         }
       }
     }
