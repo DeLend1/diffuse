@@ -6,41 +6,216 @@
 body {
   font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
     "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    background: rgb(112,203,255);
-    background: radial-gradient(circle, rgba(137,229,250,1) 0%, rgba(255,255,255,1) 100%);
+    
+    background: linear-gradient(180deg, rgba(100, 218, 255, 0.9) 0%, rgba(249, 253, 255, 0.12) 77.25%) fixed;
 }
 
-h1 {
-  
-width: 113px;
-height: 25px;
-left: 139px;
-top: 31px;
+header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: 10px 40px;
+  margin: auto;
 
-font-family: 'Dela Gothic One', sans-serif;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  
+}
+
+header h1 {
+  
 font-weight: 400;
 font-size: 24px;
 line-height: 34px;
 text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); 
+text-align: center;
+font-feature-settings: 'pnum' on, 'lnum' on;
 }
 
-.header {
+.button1 {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #3B82F6;
+    color: white;
+    font-weight: bold;
+    border-radius: 12px;
+    width: 155.44px;
+    height: 36px;
+    border: 0px solid;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+.body {
+  position: relative;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    box-sizing: border-box;
+    margin: 0px auto;
+    min-width: 320px;
+    width: 100%;
+    padding: 0px 32px;
+    max-width: 560px;
+    min-height: calc(100vh - 150px);
+}
+
+.main {
+  font-weight: 400;
+    font-size: 12px;
+    line-height: 1.6em;
+    border-radius: 20px;
+    margin: 70px 0 0 0;
+    padding: 32px;
+    box-shadow: none;
+    background: white;
+    color: grey;
+    text-align: center;
+
+}
+
+.body h1 {
+  color: black;
+  margin-bottom: 45px;
+}
+
+.value {
+  position: relative;
+    display: inline-flex;
+    border-width: 1px;
+    border-style: solid;
+    border-image: initial;
+    border-radius: 12px;
+    -webkit-box-align: stretch;
+    align-items: stretch;
+    box-sizing: border-box;
+    padding: 0px 15px;
+    cursor: text;
+    transition: border-color 100ms ease 0s;
+    width: 100%;
+    background: #EEEEEE;
+    border-color: #EEEEEE;
+    color: black;
+}
+
+.amount {
+  font-weight: 400;
+    font-size: 14px;
     display: flex;
-    justify-content: space-around;
-    flex-direction: row;
-    padding: 20px;
-    margin: auto;
-
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    position: relative;
+    padding: 17px 0px;
 }
 
-button {
-  background: #3B82F6;
-  color: white;
-  font-weight: bold;
-  border-radius: 12px;
-  width: 155.44px;
-  height: 36px;
-  border: 0px solid;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+.inputAmount {
+  width: 100%;
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 1em;
+  line-height: 1.43em;
+  padding: 0px;
+  border-radius: 0px;
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  outline: none;
+  position: relative;
+  color: black;
+  text-align: center;
+}
+
+
+.divAPY {
+  display: flex;
+    margin: 16px 0px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.6em;
+    position: relative;
+
+    border-width: 1px;
+    border-style: solid;
+    border-image: initial;
+    border-radius: 12px;
+    -webkit-box-align: stretch;
+    align-items: stretch;
+    box-sizing: border-box;
+    padding: 0px 15px;
+    cursor: text;
+    transition: border-color 100ms ease 0s;
+    width: 100%;
+    background: #EEEEEE;
+    border-color: #EEEEEE;
+}
+
+.textAPY {
+  color: grey;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  display: flex;
+  padding: 17px 0;
+}
+
+.valueAPY {
+  color: black;
+  text-align: right;
+  
+  margin-left: 32px;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  padding: 17px 0;
+}
+
+.button2 {
+  box-sizing: border-box;
+  text-align: center;
+  margin: 0px;
+  border: none;
+  outline: none;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  background-image: initial;
+  background-position: initial;
+  background-size: initial;
+  background-repeat: initial;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  font-family: inherit;
+  font-weight: 700;
+  width: 100%;
+  line-height: 1em;
+  font-size: 14px;
+  border-radius: 10px;
+  padding: 20px;
+  min-width: 120px;
+  color: #fff;
+  background-color: #3B82F6;
+  transition: background-color 100ms ease 0s;
+
+  cursor: pointer;
+}
+
+.select {
+  display: flex;
+  margin: 16px 0px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.6em;
+  margin-top: 45px;
   
 }
+
+.selectAsset {
+  color: grey;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  display: flex;
+  padding-top: 10px;
+}
+

@@ -131,15 +131,21 @@ function Body({ chainId, accountAddress }) {
 
   return (
     <>
+      <div class="select">
+        <div class="selectAsset">Select Asset:</div>
+        <div className="selectAssetValue">
+          <CoinSelect chainId={chainId} addUserToken={addUserTokenHandler} />
+        </div>
+        
+      </div>
+        <ValueInput addUserValue={addUserValueHandler} />
+        {convertUserBalance !== "" && userToken && value ? (
+          <p>{`Your balance is ${convertUserBalance} ${userToken.label}`}</p>
+        ) : null}
       <APY
         updateBestToken={setbestApyToken}
         updateBestChain={setbestApyChain}
       />
-      <CoinSelect chainId={chainId} addUserToken={addUserTokenHandler} />
-      <ValueInput addUserValue={addUserValueHandler} />
-      {convertUserBalance !== "" && userToken && value ? (
-        <p>{`Your balance is ${convertUserBalance} ${userToken.label}`}</p>
-      ) : null}
       {value !== "" &&
       approvalBalance.lt(value) &&
       userToken.contractAddress !== "0x" ? (

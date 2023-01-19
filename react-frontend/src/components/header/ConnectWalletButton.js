@@ -81,6 +81,6 @@ const ConnectWalletButton = ({ onChangeAddress, onChangeChainId }) => {
       </>
     );
   }
-  return <button onClick={connectWallet}>Connect Wallet</button>;
+  return <button className="button1" onClick={connectWallet}>Connect Wallet</button>;
 };
 export default ConnectWalletButton;

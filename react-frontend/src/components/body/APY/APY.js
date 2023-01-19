@@ -32,12 +32,16 @@ export default function APY({ updateBestToken, updateBestChain }) {
   }, []);
 
   return (
-    <h3>
+    <div className="divAPY">
+      <div className="textAPY">THE BEST CURRENT APY:</div>
+      <div className="valueAPY">
       {" "}
       {bestApy
-        ? `Best APY is %${bestApy} ${bestAsset} ${chainIds[bestChain]}`
+        ? `%${bestApy} ${bestAsset} on ${chainIds[bestChain]}`
         : "Loading..."}
-    </h3>
+      </div>
+    </div>
+    
   );
 }
 

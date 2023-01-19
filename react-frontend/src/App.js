@@ -17,16 +17,26 @@ function App() {
 
   return (
     <div className="App">
-      <div className="header">
-        <img src="react-frontend/public/IMG_0147.JPG"></img>
+      <header className="header">
         <h1>DeLend</h1>
-        <ConnecWallettButton
+        <ConnecWallettButton className="button1"
           onChangeAddress={addressChanged}
           onChangeChainId={chainIdChanged}
         />
-      </div>
+      </header>
+
       <div className="body">
+        <div className="main">
+        <h1>Deposit to Earn</h1>
         <Body chainId={networkChainId} accountAddress={accountAddress} />
+        
+        <ConnecWallettButton className="button2"
+          onChangeAddress={addressChanged}
+          onChangeChainId={chainIdChanged}
+        />
+        </div>
+        
+      
       </div>
     </div>
   );
