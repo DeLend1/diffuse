@@ -24,7 +24,7 @@ async function main() {
   });
   console.log(`Contract addres is ${await deLend.address}`);
 
-  if (chainid !== 31337) {
+  /* if (chainid !== 31337) {
     await verify(deLend.address, [
       swapRouter,
       WETH,
@@ -48,8 +48,8 @@ const verify = async (contractAddress, args) => {
     } else {
       console.log(error);
     }
-  }
-};
+  } */
+}
 
 main().catch((error) => {
   console.error(error);

@@ -29,5 +29,14 @@
     "deploy": "yarn hardhat run scripts/00_deploy.js",
     "test": "yarn hardhat test",
     "coverage": "yarn hardhat coverage"
-  }
+  },
+  "name": "web3",
+  "description": "This section presents the web3 core of the deLand protocol. The project was made using the hardhat framework. Since the protocol greatly simplifies the user's interaction with DeFi tools, a small commission is charged from the user. At the moment, the following functions are implemented:",
+  "version": "1.0.0",
+  "main": "hardhat.config.js",
+  "directories": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC"
 }
