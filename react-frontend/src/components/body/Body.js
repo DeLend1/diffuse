@@ -131,8 +131,8 @@ function Body({ chainId, accountAddress }) {
 
   return (
     <>
-      <div class="select">
-        <div class="selectAsset">Select Asset:</div>
+      <div className="select">
+        <div className="selectAsset">Select Asset:</div>
         <div className="selectAssetValue">
           <CoinSelect chainId={chainId} addUserToken={addUserTokenHandler} />
         </div>
@@ -140,7 +140,8 @@ function Body({ chainId, accountAddress }) {
       </div>
         <ValueInput addUserValue={addUserValueHandler} />
         {convertUserBalance !== "" && userToken && value ? (
-          <p>{`Your balance is ${convertUserBalance} ${userToken.label}`}</p>
+          
+          <div className="balance"><p>{`Your balance: ${convertUserBalance} ${userToken.label}`}</p></div>
         ) : null}
       <APY
         updateBestToken={setbestApyToken}
@@ -159,12 +160,7 @@ function Body({ chainId, accountAddress }) {
         value === 0 ||
         value.eq(constants.Zero) ? null : chainId !== bestApyChain ? ( //for test set 31337
         <div className="buttons">
-          <Withdraw
-            userToken={userToken}
-            protocolAddress={protocolAddress}
-            chainId={chainId}
-            value={value}
-          />
+          
           {value !== "" && (
             <Bridge
               userToken={userToken}
@@ -173,7 +169,14 @@ function Body({ chainId, accountAddress }) {
               accountAddress={accountAddress}
               value={value}
             />
+            
           )}
+          <Withdraw
+            userToken={userToken}
+            protocolAddress={protocolAddress}
+            chainId={chainId}
+            value={value}
+          />
         </div>
       ) : approvalBalance.gte(value) && userBalance.gte(value) ? (
         <div className="buttons">

@@ -76,8 +76,18 @@ const ConnectWalletButton = ({ onChangeAddress, onChangeChainId }) => {
   if (address && chainIds[chainId]) {
     return (
       <>
-        <h3>Network: {chainIds[chainId]} </h3>
-        <h3>Address: {address}</h3>
+        <div className="divaddress">
+          <button type="button" className="chainId">
+            {chainIds[chainId]} 
+          </button>
+          <button type="button" id="addressButton">
+            <div className="address">
+              {address}
+            </div>
+          </button>
+          
+        </div>
+        
       </>
     );
   }

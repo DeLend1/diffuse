@@ -127,7 +127,7 @@ function Deposit({ userTokenAddress, bestApyToken, protocolAddress, value }) {
 
   return (
     <div className="depositButton">
-      <button onClick={f_deposit}>Deposit</button>
+      <button className="deposit" onClick={f_deposit}>Deposit</button>
     </div>
   );
 }

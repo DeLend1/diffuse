@@ -28,7 +28,7 @@ function Withdraw({ userToken, protocolAddress, chainId, value }) {
 
   return (
     <div className="withdrawButton">
-      <button onClick={f_withdraw}>Withdraw</button>
+      <button className="withdraw" onClick={f_withdraw}>Withdraw</button>
     </div>
   );
 }

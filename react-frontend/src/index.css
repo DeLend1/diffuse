@@ -1,3 +1,5 @@
+/*General styling */
+
 * {
   margin: 0;
   padding: 0;
@@ -9,6 +11,8 @@ body {
     
     background: linear-gradient(180deg, rgba(100, 218, 255, 0.9) 0%, rgba(249, 253, 255, 0.12) 77.25%) fixed;
 }
+
+/*Header */
 
 header {
   display: flex;
@@ -48,7 +52,35 @@ font-feature-settings: 'pnum' on, 'lnum' on;
     height: 36px;
     border: 0px solid;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    cursor: pointer;
 }
+
+.button1:hover {
+  background-color: #1366d6;
+  box-shadow: rgba(0, 0, 0, .05) 0 5px 30px, rgba(0, 0, 0, .05) 0 1px 4px;
+  opacity: 1;
+  transform: translateY(0);
+  transition-duration: .35s;
+  
+}
+
+.button1:hover:after {
+  opacity: .5;
+
+}
+
+.button1:active {
+  box-shadow: rgba(0, 0, 0, .1) 0 3px 6px 0, rgba(0, 0, 0, .1) 0 0 10px 0, rgba(0, 0, 0, .1) 0 1px 4px -1px;
+  transform: translateY(2px);
+  transition-duration: .35s;
+
+}
+
+.button1:active:after {
+  opacity: 1;
+
+}
+/* Main White Space */
 
 .body {
   position: relative;
@@ -81,6 +113,8 @@ font-feature-settings: 'pnum' on, 'lnum' on;
   color: black;
   margin-bottom: 45px;
 }
+
+/*Value of Asset */
 
 .value {
   position: relative;
@@ -128,6 +162,7 @@ font-feature-settings: 'pnum' on, 'lnum' on;
   text-align: center;
 }
 
+/* APY row */
 
 .divAPY {
   display: flex;
@@ -163,16 +198,20 @@ font-feature-settings: 'pnum' on, 'lnum' on;
 .valueAPY {
   color: black;
   text-align: right;
-  
+  font-weight: bold;
   margin-left: 32px;
   -webkit-box-flex: 1;
   flex-grow: 1;
   padding: 17px 0;
 }
 
+/* Second button for Connect Wallet (?) */
+
 .button2 {
   box-sizing: border-box;
   text-align: center;
+  display: flex;
+  justify-content: center;
   margin: 0px;
   border: none;
   outline: none;
@@ -195,11 +234,13 @@ font-feature-settings: 'pnum' on, 'lnum' on;
   padding: 20px;
   min-width: 120px;
   color: #fff;
-  background-color: #3B82F6;
+  background-color: black;
   transition: background-color 100ms ease 0s;
 
   cursor: pointer;
 }
+
+/*Select Assets row */
 
 .select {
   display: flex;
@@ -219,3 +260,248 @@ font-feature-settings: 'pnum' on, 'lnum' on;
   padding-top: 10px;
 }
 
+/*After connection wallet and network buttons */
+
+.divaddress {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  flex-shrink: 1;
+  overflow: hidden;
+
+}
+
+.chainId {
+  border-radius: 15px;
+  border: none;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    background: #f2f4f6;
+    color: #7a8aa0;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px 6px;
+
+}
+
+#addressButton {
+  border-radius: 15px;
+  border: none;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    background: #f2f4f6;
+    color: #7a8aa0;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px 6px;
+  
+}
+
+
+.address {
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  width: 100px;
+  position: relative;
+  font-weight: 400;
+  
+  
+}
+
+/*Balance row */
+
+.balance {
+  display: flex;
+    margin: 16px 0px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.6em;
+}
+
+
+/*Approve button */
+
+.approveButton {
+  margin-bottom: 8px;
+
+}
+
+.approve {
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  background-image: initial;
+  background-position: initial;
+  background-size: initial;
+  background-repeat: initial;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  font-family: inherit;
+  font-weight: 700;
+  width: 100%;
+  line-height: 1em;
+  font-size: 14px;
+  border-radius: 10px;
+  padding: 14px;
+  min-width: 120px;
+  color: #fff;
+  background-color: #3B82F6;
+  transition: background-color 100ms ease 0s;
+  cursor: pointer;
+
+}
+
+/* Approve Bridge section */
+
+.bridge {
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+
+.approveBridge {
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  background-image: initial;
+  background-position: initial;
+  background-size: initial;
+  background-repeat: initial;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  font-family: inherit;
+  font-weight: 700;
+  width: 100%;
+  line-height: 1em;
+  font-size: 14px;
+  border-radius: 10px;
+  padding: 14px;
+  min-width: 120px;
+  color: #fff;
+  background-color: #2A9EDE;
+  transition: background-color 100ms ease 0s;
+  cursor: pointer;
+  margin-top: 16px;
+
+}
+
+/*Bridge transaction */
+
+.bridgeTrans {
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  background-image: initial;
+  background-position: initial;
+  background-size: initial;
+  background-repeat: initial;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  font-family: inherit;
+  font-weight: 700;
+  width: 100%;
+  line-height: 1em;
+  font-size: 14px;
+  border-radius: 10px;
+  padding: 14px;
+  min-width: 120px;
+  color: #fff;
+  background-color: #2A9EDE;
+  transition: background-color 100ms ease 0s;
+  cursor: pointer;
+  margin-top: 16px;
+
+}
+
+/* Withdraw button */
+
+.withdrawButton {
+  margin:8px 0;
+
+}
+
+.withdraw {
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  background-image: initial;
+  background-position: initial;
+  background-size: initial;
+  background-repeat: initial;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  font-family: inherit;
+  font-weight: 700;
+  width: 100%;
+  line-height: 1em;
+  font-size: 14px;
+  border-radius: 10px;
+  padding: 14px;
+  min-width: 120px;
+  color: #fff;
+  background-color: #85B1F7;
+  transition: background-color 100ms ease 0s;
+  cursor: pointer;
+  
+
+}
+
+/* Deposit Button */
+
+
+
+.deposit {
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  background-image: initial;
+  background-position: initial;
+  background-size: initial;
+  background-repeat: initial;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  font-family: inherit;
+  font-weight: 700;
+  width: 100%;
+  line-height: 1em;
+  font-size: 14px;
+  border-radius: 10px;
+  padding: 14px;
+  min-width: 120px;
+  color: #fff;
+  background-color: #3B82F6;
+  transition: background-color 100ms ease 0s;
+  cursor: pointer;
+
+}

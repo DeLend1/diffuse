@@ -94,20 +94,20 @@ const Bridge = ({
         <div className="bridge">
           {!txStatus && (
             <p>
-              If you want to make a deposit, then choose a chain with the best
+              To deposit this asset choose a chain with the best
               APY or use a bridge!
             </p>
           )}
           {approvalBalance.lt(value) && value !== "" ? (
-            <button onClick={f_approve}>Approve bridge</button>
+            <button className="approveBridge" onClick={f_approve}>Approve Bridge</button>
           ) : !txStatus ? (
-            <button onClick={makeBridge}>Make bridge transaction</button>
+            <button className="bridgeTrans" onClick={makeBridge}>Bridge assets</button>
           ) : (
             <p>
-              Transaction was complete!
+              Transaction completed!
               <br />
-              Please change the network and wait until the tokens are credited
-              to your balance!
+              Please change the network and wait until the tokens appear on
+               your balance!
             </p>
           )}
         </div>

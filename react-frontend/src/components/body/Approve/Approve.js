@@ -20,7 +20,7 @@ function Approve({ tokenAddress, protocolAddress, addUserAllowance }) {
 
   return (
     <div className="approveButton">
-      <button onClick={f_approve}>Approve</button>
+      <button className="approve" onClick={f_approve}>Approve</button>
     </div>
   );
 }
