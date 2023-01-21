@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import ConnectWallettButton from "./components/header/ConnectWalletButton";
 import Body from "./components/body/Body";
+import image from "./logonew.png";
 
 function App() {
   const [accountAddress, setAccountAddress] = useState("");
@@ -18,7 +19,10 @@ function App() {
   return (
     <div className="App">
       <header className="header">
-        <h1>DeLend</h1>
+        <div className="leftHeader">
+          <img src={image} alt="" />
+          <h1>DeLend</h1>
+        </div>
         <ConnectWallettButton
           connectButtonClass="button1"
           onChangeAddress={addressChanged}

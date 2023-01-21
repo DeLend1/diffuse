@@ -4,7 +4,7 @@ function ValueInput({ addUserValue }) {
       <span className="amount">
       <input className="inputAmount"
         type="text"
-        placeholder="0.00"
+        placeholder="Enter Amount"
         onChange={(e) => {
           e.preventDefault();
           addUserValue(e.target.value);

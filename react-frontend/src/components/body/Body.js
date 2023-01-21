@@ -192,7 +192,7 @@ function Body({ chainId, accountAddress }) {
           />
         </div>
       ) : (
-        <p>You don't have enough funds!</p>
+        <p><b>You don't have enough funds!</b></p>
       )}
     </>
   );
