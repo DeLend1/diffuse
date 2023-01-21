@@ -136,13 +136,13 @@ function Body({ chainId, accountAddress }) {
         <div className="selectAssetValue">
           <CoinSelect chainId={chainId} addUserToken={addUserTokenHandler} />
         </div>
-        
       </div>
-        <ValueInput addUserValue={addUserValueHandler} />
-        {convertUserBalance !== "" && userToken && value ? (
-          
-          <div className="balance"><p>{`Your balance: ${convertUserBalance} ${userToken.label}`}</p></div>
-        ) : null}
+      <ValueInput addUserValue={addUserValueHandler} />
+      {convertUserBalance !== "" && userToken && value ? (
+        <div className="balance">
+          <p>{`Your balance: ${convertUserBalance} ${userToken.label}`}</p>
+        </div>
+      ) : null}
       <APY
         updateBestToken={setbestApyToken}
         updateBestChain={setbestApyChain}
@@ -160,7 +160,6 @@ function Body({ chainId, accountAddress }) {
         value === 0 ||
         value.eq(constants.Zero) ? null : chainId !== bestApyChain ? ( //for test set 31337
         <div className="buttons">
-          
           {value !== "" && (
             <Bridge
               userToken={userToken}
@@ -169,7 +168,6 @@ function Body({ chainId, accountAddress }) {
               accountAddress={accountAddress}
               value={value}
             />
-            
           )}
           <Withdraw
             userToken={userToken}
