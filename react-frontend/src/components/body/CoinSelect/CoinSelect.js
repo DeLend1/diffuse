@@ -19,14 +19,26 @@ function CoinSelect({ chainId, addUserToken }) {
         value: "",
         label: "",
         contractAddress: "",
+        img: "",
       };
     }
     addUserToken(resetValue);
     setValue(resetValue);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chainId]);
+
   return (
-    <Select options={options[chainId]} onChange={handleChange} value={value} />
+    <Select
+      options={options[chainId]}
+      onChange={handleChange}
+      value={value}
+      formatOptionLabel={(token) => (
+        <div className="token-option">
+          <img src={token.img} alt="" />
+          <span>{token.label}</span>
+        </div>
+      )}
+    />
   );
 }
 

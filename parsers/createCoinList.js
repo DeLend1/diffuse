@@ -2,6 +2,14 @@ const fetch = require("node-fetch");
 const fs = require("fs");
 const alphaTokens = require("../react-frontend/src/utils/alphaAPYTokens.json");
 
+function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
+}
+
 async function parser() {
   //get list of all coins
   const responseCoins = await fetch(
@@ -39,6 +47,22 @@ async function parser() {
     if (rating > 2000) {
       continue;
     }
+    //download img
+
+    let coinImg;
+
+    try {
+      sleep(10000);
+      const responseCoin = await fetch(
+        `https://api.coingecko.com/api/v3/coins/${element.id}`
+      );
+      const coinData = await responseCoin.json();
+      console.log(Object.keys(coinData));
+      coinImg = coinData.image.thumb;
+    } catch (err) {
+      console.log(err);
+      coinImg = "";
+    }
 
     // save data
     for (let platform in element.platforms) {
@@ -48,6 +72,7 @@ async function parser() {
           label: element.symbol.toUpperCase(),
           contractAddress: element.platforms[platform],
           rating: rating,
+          img: coinImg,
         };
         filteredData[1].push(coin);
       } else if (platform === "polygon-pos") {
@@ -56,6 +81,7 @@ async function parser() {
           label: element.symbol.toUpperCase(),
           contractAddress: element.platforms[platform],
           rating: rating,
+          img: coinImg,
         };
         filteredData[137].push(coin);
       } else if (platform === "optimistic-ethereum") {
@@ -64,6 +90,7 @@ async function parser() {
           label: element.symbol.toUpperCase(),
           contractAddress: element.platforms[platform],
           rating: rating,
+          img: coinImg,
         };
         filteredData[10].push(coin);
       }
@@ -118,7 +145,7 @@ async function parser() {
   }
   //save filtered data in json
   fs.writeFileSync(
-    "../react-frontend/src/utils/coinsData.json",
+    "../react-frontend/src/utils/coinsData1.json",
     JSON.stringify(filteredData)
   );
 }
