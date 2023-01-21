@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import chainIds from "../../utils/chainIds";
 
 function isMetaMaskInstalled() {
@@ -13,21 +13,17 @@ async function readAddress() {
   return accounts[0];
 }
 
-function getSelectedAddress() {
-  return window.ethereum?.selectedAddress;
-}
-
-const ConnectWalletButton = ({ onChangeAddress, onChangeChainId }) => {
-  const [address, setAddress] = useState(getSelectedAddress());
-  const [chainId, setChainId] = useState(
-    Number(window.ethereum.networkVersion)
-  );
-
+const ConnectWalletButton = ({
+  onChangeAddress,
+  onChangeChainId,
+  connectButtonClass,
+  address,
+  chainId,
+}) => {
   const connectWallet = async () => {
     const selectedAddress = await readAddress();
     const selectedChainId = Number(window.ethereum.networkVersion);
-    setAddress(selectedAddress);
-    setChainId(selectedChainId);
+
     onChangeAddress(selectedAddress);
     onChangeChainId(selectedChainId);
   };
@@ -44,7 +40,6 @@ const ConnectWalletButton = ({ onChangeAddress, onChangeChainId }) => {
       return;
     }
     const listener = ([selectedAddress]) => {
-      setAddress(selectedAddress);
       onChangeAddress(selectedAddress);
     };
     window.ethereum.on(eventName, listener);
@@ -59,7 +54,6 @@ const ConnectWalletButton = ({ onChangeAddress, onChangeChainId }) => {
       return;
     }
     const listener = (selectedChainId) => {
-      setChainId(Number(selectedChainId));
       onChangeChainId(Number(selectedChainId));
     };
     window.ethereum.on(eventName, listener);
@@ -74,23 +68,35 @@ const ConnectWalletButton = ({ onChangeAddress, onChangeChainId }) => {
     );
   }
   if (address && chainIds[chainId]) {
-    return (
-      <>
-        <div className="divaddress">
-          <button type="button" className="chainId">
-            {chainIds[chainId]} 
-          </button>
-          <button type="button" id="addressButton">
-            <div className="address">
-              {address}
-            </div>
-          </button>
-          
-        </div>
-        
-      </>
-    );
+    if (connectButtonClass === "button1") {
+      return (
+        <>
+          <div className="divaddress">
+            <button type="button" className="chainId">
+              {chainIds[chainId]}
+            </button>
+            <button type="button" id="addressButton">
+              <div className="address">{`${address.slice(
+                0,
+                6
+              )}...${address.slice(-4)}`}</div>
+            </button>
+          </div>
+        </>
+      );
+    }
+    return null;
   }
-  return <button className="button1" onClick={connectWallet}>Connect Wallet</button>;
+  return (
+    <button className={connectButtonClass} onClick={connectWallet}>
+      Connect Wallet
+    </button>
+  );
 };
 export default ConnectWalletButton;
+
+/*
+function getSelectedAddress() {
+  return window.ethereum?.selectedAddress;
+} 
+*/

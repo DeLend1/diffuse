@@ -11,19 +11,41 @@ function CoinSelect({ chainId, addUserToken }) {
     setValue(selectedOption);
   };
   useEffect(() => {
-    const resetValue = {
-      value: "",
-      label: "",
-      contractAddress: "",
-    };
+    let resetValue;
+    if (chainId && Object.keys(options).includes(chainId.toString())) {
+      resetValue = options[chainId][0];
+    } else {
+      resetValue = {
+        value: "",
+        label: "",
+        contractAddress: "",
+      };
+    }
     addUserToken(resetValue);
     setValue(resetValue);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chainId]);
-
   return (
     <Select options={options[chainId]} onChange={handleChange} value={value} />
   );
 }
 
 export default CoinSelect;
+
+/*
+const countries = [
+  { value: 'me', label: 'Montenegro', image: '…' },
+  { value:'rs', label: 'Serbia', image: '…' }
+];
+
+<ReactSelect
+  value={passenger.nationality}
+  options={countries}
+  formatOptionLabel={country => (
+    <div className="country-option">
+      <img src={country.image} alt="country-image" />
+      <span>{country.label}</span>
+    </div>
+  )}
+/>  
+ */

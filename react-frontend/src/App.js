@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import ConnecWallettButton from "./components/header/ConnectWalletButton";
+import ConnectWallettButton from "./components/header/ConnectWalletButton";
 import Body from "./components/body/Body";
 
 function App() {
@@ -19,24 +19,28 @@ function App() {
     <div className="App">
       <header className="header">
         <h1>DeLend</h1>
-        <ConnecWallettButton className="button1"
+        <ConnectWallettButton
+          connectButtonClass="button1"
           onChangeAddress={addressChanged}
           onChangeChainId={chainIdChanged}
+          address={accountAddress}
+          chainId={networkChainId}
         />
       </header>
 
       <div className="body">
         <div className="main">
-        <h1>Deposit to Earn</h1>
-        <Body chainId={networkChainId} accountAddress={accountAddress} />
-        
-        <ConnecWallettButton className="button2"
-          onChangeAddress={addressChanged}
-          onChangeChainId={chainIdChanged}
-        />
+          <h1>Deposit to Earn</h1>
+          <Body chainId={networkChainId} accountAddress={accountAddress} />
+
+          <ConnectWallettButton
+            connectButtonClass="button2"
+            onChangeAddress={addressChanged}
+            onChangeChainId={chainIdChanged}
+            address={accountAddress}
+            chainId={networkChainId}
+          />
         </div>
-        
-      
       </div>
     </div>
   );
