@@ -3783,22 +3783,32 @@
     {
       "value": "aBUSD",
       "label": "ABUSD",
-      "contractAddress": "0xA361718326c15715591c299427c62086F69923D9"
+      "contractAddress": "0xA361718326c15715591c299427c62086F69923D9",
+      "img": "https://assets.coingecko.com/coins/images/9576/thumb/BUSD.png?1568947766"
     },
     {
       "value": "aDAI",
       "label": "ADAI",
-      "contractAddress": "0x028171bCA77440897B824Ca71D1c56caC55b68A3"
+      "contractAddress": "0x028171bCA77440897B824Ca71D1c56caC55b68A3",
+      "img": "https://assets.coingecko.com/coins/images/9956/thumb/4943.png?1636636734"
+    },
+    {
+      "value": "aFRAX",
+      "label": "AFRAX",
+      "contractAddress": "0xd4937682df3C8aEF4FE912A96A74121C0829E664",
+      "img": "https://assets.coingecko.com/coins/images/13422/thumb/ethCanonicalFRAX.png?1669277108"
     },
     {
       "value": "aUSDC",
       "label": "AUSDC",
-      "contractAddress": "0xBcca60bB61934080951369a648Fb03DF4F96263C"
+      "contractAddress": "0xBcca60bB61934080951369a648Fb03DF4F96263C",
+      "img": "https://assets.coingecko.com/coins/images/6319/thumb/USD_Coin_icon.png?1547042389"
     },
     {
       "value": "aUSDT",
       "label": "AUSDT",
-      "contractAddress": "0x3Ed3B47Dd13EC9a98b44e6204A523E766B225811"
+      "contractAddress": "0x3Ed3B47Dd13EC9a98b44e6204A523E766B225811",
+      "img": "https://assets.coingecko.com/coins/images/325/thumb/Tether.png?1668148663"
     }
   ],
   "10": [
@@ -4009,17 +4019,20 @@
     {
       "value": "aDAI",
       "label": "ADAI",
-      "contractAddress": "0x82E64f49Ed5EC1bC6e43DAD4FC8Af9bb3A2312EE"
+      "contractAddress": "0x82E64f49Ed5EC1bC6e43DAD4FC8Af9bb3A2312EE",
+      "img": "https://assets.coingecko.com/coins/images/9956/thumb/4943.png?1636636734"
     },
     {
       "value": "aUSDC",
       "label": "AUSDC",
-      "contractAddress": "0x625E7708f30cA75bfd92586e17077590C60eb4cD"
+      "contractAddress": "0x625E7708f30cA75bfd92586e17077590C60eb4cD",
+      "img": "https://assets.coingecko.com/coins/images/6319/thumb/USD_Coin_icon.png?1547042389"
     },
     {
       "value": "aUSDT",
       "label": "AUSDT",
-      "contractAddress": "0x6ab707Aca953eDAeFBc4fD23bA73294241490620"
+      "contractAddress": "0x6ab707Aca953eDAeFBc4fD23bA73294241490620",
+      "img": "https://assets.coingecko.com/coins/images/325/thumb/Tether.png?1668148663"
     }
   ],
   "137": [
@@ -4872,17 +4885,20 @@
     {
       "value": "aDAI",
       "label": "ADAI",
-      "contractAddress": "0x82E64f49Ed5EC1bC6e43DAD4FC8Af9bb3A2312EE"
+      "contractAddress": "0x82E64f49Ed5EC1bC6e43DAD4FC8Af9bb3A2312EE",
+      "img": "https://assets.coingecko.com/coins/images/9956/thumb/4943.png?1636636734"
     },
     {
       "value": "aUSDC",
       "label": "AUSDC",
-      "contractAddress": "0x625E7708f30cA75bfd92586e17077590C60eb4cD"
+      "contractAddress": "0x625E7708f30cA75bfd92586e17077590C60eb4cD",
+      "img": "https://assets.coingecko.com/coins/images/6319/thumb/USD_Coin_icon.png?1547042389"
     },
     {
       "value": "aUSDT",
       "label": "AUSDT",
-      "contractAddress": "0x6ab707Aca953eDAeFBc4fD23bA73294241490620"
+      "contractAddress": "0x6ab707Aca953eDAeFBc4fD23bA73294241490620",
+      "img": "https://assets.coingecko.com/coins/images/325/thumb/Tether.png?1668148663"
     }
   ]
 }

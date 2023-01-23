@@ -1,9 +1,17 @@
 import { useState, useEffect } from "react";
 import Select from "react-select";
 
-import options from "../../../utils/coinsData.json";
+import data1 from "../../../utils/coinsData.json";
+import data2 from "../../../utils/coinsDataWithdraw.json";
 
-function CoinSelect({ chainId, addUserToken }) {
+function CoinSelect({ chainId, addUserToken, mode }) {
+  let options;
+  if (mode) {
+    options = data1;
+  } else {
+    options = data2;
+  }
+
   const [value, setValue] = useState("");
 
   const handleChange = (selectedOption) => {

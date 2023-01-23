@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import ConnectWallettButton from "./components/header/ConnectWalletButton";
-import Body from "./components/body/Body";
-import image from "./logonew.png";
+import MainLayout from "./layouts/MainLayout";
+import DepositPage from "./components/body/DepositPage";
+import WithdrawPage from "./components/body/WithdrawPage";
 
 function App() {
   const [accountAddress, setAccountAddress] = useState("");
@@ -17,37 +18,64 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <header className="header">
-        <div className="leftHeader">
-          <img src={image} alt="" />
-          <h1>DeLend</h1>
-        </div>
-        <ConnectWallettButton
-          connectButtonClass="button1"
-          onChangeAddress={addressChanged}
-          onChangeChainId={chainIdChanged}
-          address={accountAddress}
-          chainId={networkChainId}
-        />
-      </header>
-
-      <div className="body">
-        <div className="main">
-          <h1>Deposit to Earn</h1>
-          <Body chainId={networkChainId} accountAddress={accountAddress} />
-
-          <ConnectWallettButton
-            connectButtonClass="button2"
-            onChangeAddress={addressChanged}
-            onChangeChainId={chainIdChanged}
-            address={accountAddress}
-            chainId={networkChainId}
-          />
-        </div>
+    <BrowserRouter>
+      <div className="App">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <MainLayout
+                accountAddress={accountAddress}
+                networkChainId={networkChainId}
+                addressChanged={addressChanged}
+                chainIdChanged={chainIdChanged}
+              />
+            }
+          >
+            <Route
+              index={true}
+              element={
+                <DepositPage
+                  accountAddress={accountAddress}
+                  networkChainId={networkChainId}
+                  addressChanged={addressChanged}
+                  chainIdChanged={chainIdChanged}
+                />
+              }
+            />
+            <Route
+              path="/withdraw"
+              element={
+                <WithdrawPage
+                  accountAddress={accountAddress}
+                  networkChainId={networkChainId}
+                  addressChanged={addressChanged}
+                  chainIdChanged={chainIdChanged}
+                />
+              }
+            />
+          </Route>
+        </Routes>
       </div>
-    </div>
+    </BrowserRouter>
   );
 }
 
 export default App;
+
+/*
+<div className="body">
+          <div className="main">
+            <h1>Deposit to Earn</h1>
+            <Body chainId={networkChainId} accountAddress={accountAddress} />
+
+            <ConnectWallettButton
+              connectButtonClass="button2"
+              onChangeAddress={addressChanged}
+              onChangeChainId={chainIdChanged}
+              address={accountAddress}
+              chainId={networkChainId}
+            />
+          </div>
+        </div>
+*/

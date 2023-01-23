@@ -1,19 +1,18 @@
 import { useState, useEffect } from "react";
 import { ethers, constants } from "ethers";
 
-import APY from "./APY/APY";
-import Approve from "./Approve/Approve";
-import CoinSelect from "./CoinSelect/CoinSelect";
-import ValueInput from "./ValueInput/ValueInput";
-import Deposit from "./Deposit/Deposit";
-import Withdraw from "./Withdraw/Withdraw";
-import Bridge from "./Bridge/Bridge";
+import APY from "../APY/APY";
+import Approve from "../Approve/Approve";
+import CoinSelect from "../CoinSelect/CoinSelect";
+import ValueInput from "../ValueInput/ValueInput";
+import Deposit from "./Deposit";
+import Bridge from "../Bridge/Bridge";
 
-import abiERC20 from "../../utils/abiERC20.json";
-import protocolAddresses from "../../utils/protocolAddresses.json";
-import apyTokens from "../../utils/apyTokens.json";
+import abiERC20 from "../../../utils/abiERC20.json";
+import protocolAddresses from "../../../utils/protocolAddresses.json";
+import apyTokens from "../../../utils/apyTokens.json";
 
-function Body({ chainId, accountAddress }) {
+function DepositFunc({ chainId, accountAddress }) {
   const [value, setValue] = useState("");
   const [userToken, setUserToken] = useState("");
   const [approvalBalance, setApprovalBalance] = useState(constants.Zero);
@@ -134,7 +133,11 @@ function Body({ chainId, accountAddress }) {
       <div className="select">
         <div className="selectAsset">Select Asset:</div>
         <div className="selectAssetValue">
-          <CoinSelect chainId={chainId} addUserToken={addUserTokenHandler} />
+          <CoinSelect
+            chainId={chainId}
+            addUserToken={addUserTokenHandler}
+            mode={true}
+          />
         </div>
       </div>
       <ValueInput addUserValue={addUserValueHandler} />
@@ -149,7 +152,8 @@ function Body({ chainId, accountAddress }) {
       />
       {value !== "" &&
       approvalBalance.lt(value) &&
-      userToken.contractAddress !== "0x" ? (
+      userToken.contractAddress !== "0x" &&
+      chainId === bestApyChain ? (
         <Approve
           tokenAddress={userToken.contractAddress}
           protocolAddress={protocolAddress}
@@ -169,12 +173,6 @@ function Body({ chainId, accountAddress }) {
               value={value}
             />
           )}
-          <Withdraw
-            userToken={userToken}
-            protocolAddress={protocolAddress}
-            chainId={chainId}
-            value={value}
-          />
         </div>
       ) : approvalBalance.gte(value) && userBalance.gte(value) ? (
         <div className="buttons">
@@ -184,18 +182,14 @@ function Body({ chainId, accountAddress }) {
             protocolAddress={protocolAddress}
             value={value}
           />
-          <Withdraw
-            userToken={userToken}
-            protocolAddress={protocolAddress}
-            chainId={chainId}
-            value={value}
-          />
         </div>
       ) : (
-        <p><b>You don't have enough funds</b></p>
+        <p>
+          <b>You don't have enough funds</b>
+        </p>
       )}
     </>
   );
 }
 
-export default Body;
+export default DepositFunc;
