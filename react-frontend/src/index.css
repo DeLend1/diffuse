@@ -621,3 +621,19 @@ header h1 {
 
 /* Success button */
 
+.deposit.success {
+  background-color:#0f6200;
+  
+  
+}
+
+.tokenOption {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  
+}
+
+.iconAsset {
+  margin-right: 7px;
+}

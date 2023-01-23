@@ -33,8 +33,8 @@ function CoinSelect({ chainId, addUserToken }) {
       onChange={handleChange}
       value={value}
       formatOptionLabel={(token) => (
-        <div className="token-option">
-          <img src={token.img} alt="" />
+        <div className="tokenOption">
+          <img className="iconAsset" src={token.img} alt="" />
           <span>{token.label}</span>
         </div>
       )}
