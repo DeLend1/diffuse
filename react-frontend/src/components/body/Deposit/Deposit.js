@@ -145,16 +145,16 @@ function Deposit({ userTokenAddress, bestApyToken, protocolAddress, value }) {
     <>
       {!txStatus ? (
         <div className="depositButton">
-        <button className="deposit" onClick={f_deposit}>
-          Deposit
-        </button>
-      </div>
+          <button className="deposit" onClick={f_deposit}>
+            Deposit
+          </button>
+        </div>
       ) : (
         <div className="successButton">
-        <button className="deposit success" onClick={changeTxStatus}>
-          Successfully deposited <img src={image} alt="" />
-        </button>
-      </div>
+          <button className="deposit success" onClick={changeTxStatus}>
+            Successfully deposited <img src={image} alt="" />
+          </button>
+        </div>
       )}
     </>
   );

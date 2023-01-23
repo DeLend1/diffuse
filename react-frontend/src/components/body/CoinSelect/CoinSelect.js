@@ -43,21 +43,3 @@ function CoinSelect({ chainId, addUserToken }) {
 }
 
 export default CoinSelect;
-
-/*
-const countries = [
-  { value: 'me', label: 'Montenegro', image: '…' },
-  { value:'rs', label: 'Serbia', image: '…' }
-];
-
-<ReactSelect
-  value={passenger.nationality}
-  options={countries}
-  formatOptionLabel={country => (
-    <div className="country-option">
-      <img src={country.image} alt="country-image" />
-      <span>{country.label}</span>
-    </div>
-  )}
-/>  
- */
