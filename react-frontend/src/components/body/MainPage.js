@@ -1,7 +1,7 @@
-import Withdraw from "./Withdraw/Withdraw";
+import MainFunctionality from "./MainFunctionality/MainFunctionality";
 import ConnectWalletButton from "../header/ConnectWalletButton";
 
-const WithdrawPage = ({
+const MainPage = ({
   accountAddress,
   networkChainId,
   addressChanged,
@@ -10,8 +10,11 @@ const WithdrawPage = ({
   return (
     <div className="body">
       <div className="main">
-        <h1>Withdraw your reward</h1>
-        <Withdraw chainId={networkChainId} accountAddress={accountAddress} />
+        <h1>Deposit to Earn</h1>
+        <MainFunctionality
+          chainId={networkChainId}
+          accountAddress={accountAddress}
+        />
         <ConnectWalletButton
           connectButtonClass="button2"
           onChangeAddress={addressChanged}
@@ -24,4 +27,4 @@ const WithdrawPage = ({
   );
 };
 
-export default WithdrawPage;
+export default MainPage;

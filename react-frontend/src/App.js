@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import MainLayout from "./layouts/MainLayout";
-import DepositPage from "./components/body/DepositPage";
+import MainPage from "./components/body/MainPage";
 import WithdrawPage from "./components/body/WithdrawPage";
 
 function App() {
@@ -35,7 +35,7 @@ function App() {
             <Route
               index={true}
               element={
-                <DepositPage
+                <MainPage
                   accountAddress={accountAddress}
                   networkChainId={networkChainId}
                   addressChanged={addressChanged}

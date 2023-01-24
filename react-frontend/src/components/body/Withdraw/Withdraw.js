@@ -77,7 +77,7 @@ function WithdrawFunc({ chainId, accountAddress }) {
         console.log("Refresh approval balance error!");
       }
     })();
-  }, [userToken, accountAddress, protocolAddress]);
+  }, [userToken, accountAddress, protocolAddress, chainId]);
 
   // refresh user balance of the userToken
   useEffect(() => {
@@ -117,6 +117,7 @@ function WithdrawFunc({ chainId, accountAddress }) {
     setUserBalance("");
   }, [chainId, accountAddress]);
 
+  // change tx status
   useEffect(() => {
     setTxStatus(false);
   }, [value, userToken]);
@@ -144,9 +145,7 @@ function WithdrawFunc({ chainId, accountAddress }) {
     const signer = provider.getSigner();
     const contract = new ethers.Contract(protocolAddress, abiProtocol, signer);
     const resultTokenName = userToken.value.replace("a", "").toUpperCase();
-    console.log(resultTokenName);
     const resultTokenAddress = apyTokens[chainId][resultTokenName];
-    console.log(resultTokenAddress);
     const txWithdraw = await contract.withdraw(
       resultTokenAddress,
       userToken.contractAddress,
@@ -203,15 +202,26 @@ function WithdrawFunc({ chainId, accountAddress }) {
           ) : (
             <div className="successButton">
               <button className="deposit success" onClick={changeTxStatus}>
-                Successfully deposited <img src={image} alt="" />
+                Successfully withdrawed <img src={image} alt="" />
               </button>
             </div>
           )}
         </div>
       ) : (
-        <p>
-          <b>You don't have enough funds</b>
-        </p>
+        <>
+          {txStatus === true && (
+            <div className="buttons">
+              <div className="successButton">
+                <button className="deposit success" onClick={changeTxStatus}>
+                  Successfully deposited <img src={image} alt="" />
+                </button>
+              </div>
+            </div>
+          )}
+          <p>
+            <b>You don't have enough funds</b>
+          </p>
+        </>
       )}
     </>
   );

@@ -2,24 +2,25 @@ import { useState, useEffect } from "react";
 import { ethers, constants } from "ethers";
 
 import APY from "../APY/APY";
-import Approve from "../Approve/Approve";
 import CoinSelect from "../CoinSelect/CoinSelect";
 import ValueInput from "../ValueInput/ValueInput";
-import Deposit from "./Deposit";
 import Bridge from "../Bridge/Bridge";
 
 import abiERC20 from "../../../utils/abiERC20.json";
 import protocolAddresses from "../../../utils/protocolAddresses.json";
 import apyTokens from "../../../utils/apyTokens.json";
+import abiProtocol from "../../../utils/abiProtocol.json";
+import image from "./tick.png";
 
-function DepositFunc({ chainId, accountAddress }) {
+function MainFunctionality({ chainId, accountAddress }) {
   const [value, setValue] = useState("");
   const [userToken, setUserToken] = useState("");
   const [approvalBalance, setApprovalBalance] = useState(constants.Zero);
-  const [userBalance, setUserBalance] = useState("");
+  const [userBalance, setUserBalance] = useState(constants.Zero);
   const [convertUserBalance, setConvertUserBalance] = useState("");
   const [bestApyToken, setbestApyToken] = useState("");
   const [bestApyChain, setbestApyChain] = useState("");
+  const [txStatus, setTxStatus] = useState(false);
 
   const protocolAddress = protocolAddresses[chainId];
 
@@ -49,14 +50,9 @@ function DepositFunc({ chainId, accountAddress }) {
         setValue(convertValue);
       }
     } catch (error) {
-      const decimals = 1;
-      const convertValue = ethers.utils.parseUnits(String(0), decimals);
+      const convertValue = constants.Zero;
       setValue(convertValue);
     }
-  };
-
-  const addUserAllowanceHandler = (allowanceValue) => {
-    setApprovalBalance(allowanceValue);
   };
 
   // refresh approval balance
@@ -79,14 +75,13 @@ function DepositFunc({ chainId, accountAddress }) {
           );
           setApprovalBalance(currentAllowance);
         } else if (userToken.contractAddress === "0x") {
-          setApprovalBalance(ethers.utils.parseUnits("1000000000", 18));
+          setApprovalBalance(constants.MaxUint256);
         }
       } catch (err) {
         console.log("Refresh approval balance error!");
       }
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userToken]);
+  }, [userToken, accountAddress, protocolAddress, chainId]);
 
   // refresh user balance of the userToken
   useEffect(() => {
@@ -118,15 +113,102 @@ function DepositFunc({ chainId, accountAddress }) {
         setConvertUserBalance(convertValue);
       }
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userToken]);
+  }, [userToken, accountAddress, value, chainId, txStatus]);
 
   //refresh input data
   useEffect(() => {
     setValue("");
     setUserBalance("");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chainId, accountAddress]);
+
+  // change tx status
+  useEffect(() => {
+    setTxStatus(false);
+  }, [value, userToken]);
+
+  //approve tx
+  async function approve() {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(
+      userToken.contractAddress,
+      abiERC20,
+      signer
+    );
+    const txAppove = await contract.approve(
+      protocolAddress,
+      constants.MaxUint256
+    );
+    await txAppove.wait();
+    setApprovalBalance(constants.MaxUint256);
+  }
+
+  // deposit token on lending protocol
+  async function deposit() {
+    const poolFees = ["100", "500", "3000", "10000"];
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(protocolAddress, abiProtocol, signer);
+
+    if (userToken.contractAddress !== "0x") {
+      for (let fee of poolFees) {
+        try {
+          const txDeposit = await contract.supplyFromToken(
+            value,
+            userToken.contractAddress,
+            apyTokens[bestApyChain][bestApyToken], //bestAPYToken
+            fee
+          );
+          await txDeposit.wait();
+          setTxStatus(true);
+          break;
+        } catch (err) {
+          if (err.reason === "user rejected transaction") {
+            break;
+          } else {
+            console.log(err.reason);
+          }
+        }
+      }
+    } else {
+      for (let fee of poolFees) {
+        try {
+          const txDeposit = await contract.supplyFromETH(
+            apyTokens[bestApyChain][bestApyToken], //bestAPYToken
+            fee,
+            {
+              value: value,
+            }
+          );
+          await txDeposit.wait();
+          setTxStatus(true);
+          break;
+        } catch (err) {
+          if (err.reason === "user rejected transaction") {
+            break;
+          } else {
+            console.log(err.reason);
+          }
+        }
+      }
+    }
+  }
+
+  //function for "deposit button"
+  async function createTransaction() {
+    if (approvalBalance.gte(value)) {
+      await deposit();
+      setTxStatus(true);
+    } else {
+      await approve();
+      await deposit();
+      setTxStatus(true);
+    }
+  }
+
+  function changeTxStatus() {
+    setTxStatus(false);
+  }
 
   return (
     <>
@@ -141,7 +223,7 @@ function DepositFunc({ chainId, accountAddress }) {
         </div>
       </div>
       <ValueInput addUserValue={addUserValueHandler} />
-      {convertUserBalance !== "" && userToken && value ? (
+      {convertUserBalance !== "" && userToken ? (
         <div className="balance">
           <p>{`Your balance: ${convertUserBalance} ${userToken.label}`}</p>
         </div>
@@ -150,16 +232,6 @@ function DepositFunc({ chainId, accountAddress }) {
         updateBestToken={setbestApyToken}
         updateBestChain={setbestApyChain}
       />
-      {value !== "" &&
-      approvalBalance.lt(value) &&
-      userToken.contractAddress !== "0x" &&
-      chainId === bestApyChain ? (
-        <Approve
-          tokenAddress={userToken.contractAddress}
-          protocolAddress={protocolAddress}
-          addUserAllowance={addUserAllowanceHandler}
-        />
-      ) : null}
       {chainId === "" ? null : value === "" ||
         value === 0 ||
         value.eq(constants.Zero) ? null : chainId !== 31337 ? ( //for test set bestApyChain
@@ -174,22 +246,40 @@ function DepositFunc({ chainId, accountAddress }) {
             />
           )}
         </div>
-      ) : approvalBalance.gte(value) && userBalance.gte(value) ? (
+      ) : userBalance.gte(value) ? (
         <div className="buttons">
-          <Deposit
-            userTokenAddress={userToken.contractAddress}
-            bestApyToken={apyTokens[bestApyChain][bestApyToken]}
-            protocolAddress={protocolAddress}
-            value={value}
-          />
+          {!txStatus ? (
+            <div className="depositButton">
+              <button className="deposit" onClick={createTransaction}>
+                Deposit
+              </button>
+            </div>
+          ) : (
+            <div className="successButton">
+              <button className="deposit success" onClick={changeTxStatus}>
+                Successfully deposited <img src={image} alt="" />
+              </button>
+            </div>
+          )}
         </div>
       ) : (
-        <p>
-          <b>You don't have enough funds</b>
-        </p>
+        <>
+          {txStatus === true && (
+            <div className="buttons">
+              <div className="successButton">
+                <button className="deposit success" onClick={changeTxStatus}>
+                  Successfully deposited <img src={image} alt="" />
+                </button>
+              </div>
+            </div>
+          )}
+          <p>
+            <b>You don't have enough funds</b>
+          </p>
+        </>
       )}
     </>
   );
 }
 
-export default DepositFunc;
+export default MainFunctionality;
