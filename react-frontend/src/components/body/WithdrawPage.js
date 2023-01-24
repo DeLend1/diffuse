@@ -1,4 +1,4 @@
-import WithdrawFunc from "./Withdraw/WithdrawFunc";
+import Withdraw from "./Withdraw/Withdraw";
 import ConnectWalletButton from "../header/ConnectWalletButton";
 
 const WithdrawPage = ({
@@ -11,10 +11,7 @@ const WithdrawPage = ({
     <div className="body">
       <div className="main">
         <h1>Withdraw your reward</h1>
-        <WithdrawFunc
-          chainId={networkChainId}
-          accountAddress={accountAddress}
-        />
+        <Withdraw chainId={networkChainId} accountAddress={accountAddress} />
         <ConnectWalletButton
           connectButtonClass="button2"
           onChangeAddress={addressChanged}

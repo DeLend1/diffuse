@@ -162,7 +162,7 @@ function DepositFunc({ chainId, accountAddress }) {
       ) : null}
       {chainId === "" ? null : value === "" ||
         value === 0 ||
-        value.eq(constants.Zero) ? null : chainId !== bestApyChain ? ( //for test set 31337
+        value.eq(constants.Zero) ? null : chainId !== 31337 ? ( //for test set bestApyChain
         <div className="buttons">
           {value !== "" && (
             <Bridge

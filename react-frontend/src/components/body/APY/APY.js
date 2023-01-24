@@ -19,9 +19,9 @@ export default function APY({ updateBestToken, updateBestChain }) {
   useEffect(() => {
     (async function () {
       // const ethAPY = await getAPYETH();
-      const optAPY = await getAPYOPT();
+      // const optAPY = await getAPYOPT();
       const polAPY = await getAPYPOL();
-      const [apy, asset] = getBestAPY(/*ethAPY,*/ optAPY, polAPY);
+      const [apy, asset] = getBestAPY(/*ethAPY, optAPY,*/ polAPY);
       setBestApy(apy);
       setBestAsset(asset[0]);
       setBestChain(asset[1]);
