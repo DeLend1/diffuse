@@ -4,6 +4,7 @@ import { Hop, Chain } from "@hop-protocol/sdk";
 import { ethers, constants } from "ethers";
 import chainIds from "../../../utils/chainIds";
 import abiERC20 from "../../../utils/abiERC20.json";
+import chainParams from "../../../utils/chainsParams.json";
 
 const Bridge = ({
   userToken,
@@ -11,10 +12,12 @@ const Bridge = ({
   chainId,
   accountAddress,
   value,
+  userBalance,
 }) => {
   const [approvalBalance, setApprovalBalance] = useState(constants.Zero);
   const [approvalAddress, setApprovalAddress] = useState("");
-  const [txStatus, setTxStatus] = useState(false);
+  const [estimatedValue, setEstimatedValue] = useState(constants.Zero);
+  const [convertEstimatedValue, setConvertEstimatedValue] = useState("");
 
   let provider;
   let signer;
@@ -37,6 +40,18 @@ const Bridge = ({
         const bridgeAddress = await bridge.getSendApprovalAddress(
           Chain[chainIds[chainId]]
         );
+
+        const { estimatedReceived } = await bridge.getSendData(
+          value,
+          Chain[chainIds[chainId]],
+          Chain[chainIds[bestApyChain]]
+        );
+        setEstimatedValue(estimatedReceived);
+        const decimals = userToken.label !== "ETH" ? 6 : 18;
+        const convertValue = Number(
+          ethers.utils.formatUnits(estimatedReceived.toString(), decimals)
+        ).toFixed(3);
+        setConvertEstimatedValue(convertValue);
         if (
           userToken.contractAddress !== "0x" &&
           userToken.contractAddress !== undefined
@@ -50,6 +65,7 @@ const Bridge = ({
             accountAddress,
             bridgeAddress
           );
+
           setApprovalBalance(currentAllowance);
           setApprovalAddress(bridgeAddress);
         } else if (userToken.contractAddress === "0x") {
@@ -59,9 +75,26 @@ const Bridge = ({
       } catch (err) {}
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userToken]);
+  }, [userToken, accountAddress, chainId, value]);
 
-  async function f_approve() {
+  async function changeNetwork() {
+    try {
+      await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: `0x${bestApyChain.toString(16)}` }],
+      });
+    } catch (err) {
+      // This error code indicates that the chain has not been added to MetaMask
+      if (err.code === 4902) {
+        await window.ethereum.request({
+          method: "wallet_addEthereumChain",
+          params: chainParams[bestApyChain],
+        });
+      }
+    }
+  }
+
+  async function approve() {
     const contract = new ethers.Contract(
       userToken.contractAddress,
       abiERC20,
@@ -73,42 +106,52 @@ const Bridge = ({
 
   async function makeBridge() {
     try {
-      await bridge.send(
+      if (value.gt(approvalBalance)) {
+        await approve();
+      }
+      const txBridge = await bridge.send(
         value,
         Chain[chainIds[chainId]],
         Chain[chainIds[bestApyChain]]
       );
-      setTxStatus(true);
-    } catch (err) {
+      await txBridge.wait();
+      await changeNetwork();
       window.alert(
-        "The bridge is down! Please choose another token or try again later!"
+        "Transaction completed!\nPlease wait until the tokens are credited to your account.\nThis may take about 5 minutes."
       );
+    } catch (err) {
       console.log(err);
     }
   }
 
   return (
     <>
+      <p>
+        To deposit this asset choose a chain with the best APY or use a bridge!
+      </p>
+      <button className="approveBridge" onClick={changeNetwork}>
+        Change Network
+      </button>
       {possibleBridgeTokens.indexOf(userToken.label) !== -1 &&
-      !value.eq(constants.Zero) ? (
+      !value.eq(constants.Zero) &&
+      userBalance.gte(value) ? (
         <div className="bridge">
-          {!txStatus && (
+          {estimatedValue.eq(constants.Zero) ? (
             <p>
-              To deposit this asset choose a chain with the best
-              APY or use a bridge!
-            </p>
-          )}
-          {approvalBalance.lt(value) && value !== "" ? (
-            <button className="approveBridge" onClick={f_approve}>Approve Bridge</button>
-          ) : !txStatus ? (
-            <button className="bridgeTrans" onClick={makeBridge}>Bridge assets</button>
-          ) : (
-            <p>
-              Transaction completed!
               <br />
-              Please change the network and wait until the tokens appear on
-               your balance!
+              The bridge commission exceeds the amount entered!
+              <br /> Transaction not possible!
             </p>
+          ) : (
+            <>
+              <p>
+                <br />
+                {`You will recieved: ${convertEstimatedValue} ${userToken.label} on ${chainIds[bestApyChain]}`}
+              </p>
+              <button className="bridgeTrans" onClick={makeBridge}>
+                Bridge assets
+              </button>
+            </>
           )}
         </div>
       ) : null}
@@ -117,3 +160,12 @@ const Bridge = ({
 };
 
 export default Bridge;
+
+/*
+ <p>
+          Transaction completed!
+          <br />
+          Please change the network and wait until the tokens appear on your
+          balance!
+        </p>
+*/

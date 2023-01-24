@@ -4,7 +4,7 @@ import Select from "react-select";
 import data1 from "../../../utils/coinsData.json";
 import data2 from "../../../utils/coinsDataWithdraw.json";
 
-function CoinSelect({ chainId, addUserToken, mode }) {
+function CoinSelect({ chainId, addUserToken, mode, userToken }) {
   let options;
   if (mode) {
     options = data1;
@@ -21,7 +21,13 @@ function CoinSelect({ chainId, addUserToken, mode }) {
   useEffect(() => {
     let resetValue;
     if (chainId && Object.keys(options).includes(chainId.toString())) {
-      resetValue = options[chainId][0];
+      if (userToken) {
+        resetValue = options[chainId].find(
+          (token) => token.label === userToken.label
+        );
+      } else {
+        resetValue = options[chainId][0];
+      }
     } else {
       resetValue = {
         value: "",

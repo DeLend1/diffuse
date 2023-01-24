@@ -1,0 +1,18 @@
+{
+  "10": [
+    {
+      "chainName": "Optimistic Ethereum",
+      "chainId": "0xa",
+      "nativeCurrency": { "name": "ETH", "decimals": 18, "symbol": "ETH" },
+      "rpcUrls": ["https://mainnet.optimism.io/"]
+    }
+  ],
+  "137": [
+    {
+      "chainName": "Polygon",
+      "chainId": "0x89",
+      "nativeCurrency": { "name": "MATIC", "decimals": 18, "symbol": "MATIC" },
+      "rpcUrls": ["https://polygon-rpc.com/"]
+    }
+  ]
+}

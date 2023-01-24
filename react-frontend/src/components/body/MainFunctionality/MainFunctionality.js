@@ -219,6 +219,7 @@ function MainFunctionality({ chainId, accountAddress }) {
             chainId={chainId}
             addUserToken={addUserTokenHandler}
             mode={true}
+            userToken={userToken}
           />
         </div>
       </div>
@@ -234,7 +235,7 @@ function MainFunctionality({ chainId, accountAddress }) {
       />
       {chainId === "" ? null : value === "" ||
         value === 0 ||
-        value.eq(constants.Zero) ? null : chainId !== 31337 ? ( //for test set bestApyChain
+        value.eq(constants.Zero) ? null : chainId !== bestApyChain ? ( //for test set  31337
         <div className="buttons">
           {value !== "" && (
             <Bridge
@@ -243,6 +244,7 @@ function MainFunctionality({ chainId, accountAddress }) {
               chainId={chainId}
               accountAddress={accountAddress}
               value={value}
+              userBalance={userBalance}
             />
           )}
         </div>
