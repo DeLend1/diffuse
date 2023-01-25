@@ -18,6 +18,8 @@ const Bridge = ({
   const [approvalAddress, setApprovalAddress] = useState("");
   const [estimatedValue, setEstimatedValue] = useState(constants.Zero);
   const [convertEstimatedValue, setConvertEstimatedValue] = useState("");
+  const [responseStatus, setResponseStatus] = useState(false);
+  const [responseFeeStatus, setResponseFeeStatus] = useState(false);
 
   let provider;
   let signer;
@@ -40,7 +42,7 @@ const Bridge = ({
         const bridgeAddress = await bridge.getSendApprovalAddress(
           Chain[chainIds[chainId]]
         );
-
+        setResponseFeeStatus(true);
         const { estimatedReceived } = await bridge.getSendData(
           value,
           Chain[chainIds[chainId]],
@@ -52,6 +54,7 @@ const Bridge = ({
           ethers.utils.formatUnits(estimatedReceived.toString(), decimals)
         ).toFixed(3);
         setConvertEstimatedValue(convertValue);
+        setResponseFeeStatus(false);
         if (
           userToken.contractAddress !== "0x" &&
           userToken.contractAddress !== undefined
@@ -114,8 +117,10 @@ const Bridge = ({
         Chain[chainIds[chainId]],
         Chain[chainIds[bestApyChain]]
       );
+      setResponseStatus(true);
       await txBridge.wait();
       await changeNetwork();
+      setResponseStatus(false);
       window.alert(
         "Transaction completed!\nPlease wait until the tokens are credited to your account.\nThis may take about 5 minutes."
       );
@@ -137,20 +142,33 @@ const Bridge = ({
       userBalance.gte(value) ? (
         <div className="bridge">
           {estimatedValue.eq(constants.Zero) ? (
-            <p>
-              <br />
-              The bridge commission exceeds the amount entered!
-              <br /> Transaction not possible!
-            </p>
+            <>
+              {!responseFeeStatus ? (
+                <p>
+                  <br />
+                  The bridge commission exceeds the amount entered!
+                  <br /> Transaction not possible!
+                </p>
+              ) : (
+                <p>
+                  <br />
+                  Loading bridge transaction fee...
+                </p>
+              )}
+            </>
           ) : (
             <>
               <p>
                 <br />
                 {`You will recieved: ${convertEstimatedValue} ${userToken.label} on ${chainIds[bestApyChain]}`}
               </p>
-              <button className="bridgeTrans" onClick={makeBridge}>
-                Bridge assets
-              </button>
+              {!responseStatus ? (
+                <button className="bridgeTrans" onClick={makeBridge}>
+                  Bridge assets
+                </button>
+              ) : (
+                <button className="bridgeTrans">Waiting...</button>
+              )}
             </>
           )}
         </div>

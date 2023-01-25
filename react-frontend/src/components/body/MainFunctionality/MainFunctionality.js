@@ -21,6 +21,7 @@ function MainFunctionality({ chainId, accountAddress }) {
   const [bestApyToken, setbestApyToken] = useState("");
   const [bestApyChain, setbestApyChain] = useState("");
   const [txStatus, setTxStatus] = useState(false);
+  const [responseStatus, setResponseStatus] = useState(false);
 
   const protocolAddress = protocolAddresses[chainId];
 
@@ -58,11 +59,12 @@ function MainFunctionality({ chainId, accountAddress }) {
   // refresh approval balance
   useEffect(() => {
     (async function () {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
       try {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
         if (
+          userToken.contractAddress &&
           userToken.contractAddress !== "0x" &&
-          userToken.contractAddress !== undefined
+          userToken.contractAddress !== ""
         ) {
           const contract = new ethers.Contract(
             userToken.contractAddress,
@@ -86,31 +88,33 @@ function MainFunctionality({ chainId, accountAddress }) {
   // refresh user balance of the userToken
   useEffect(() => {
     (async function () {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      if (
-        userToken.contractAddress !== "0x" &&
-        userToken.contractAddress !== undefined &&
-        userToken.contractAddress !== ""
-      ) {
-        const contract = new ethers.Contract(
-          userToken.contractAddress,
-          abiERC20,
-          provider
-        );
-        const currentBalance = await contract.balanceOf(accountAddress);
-        const decimals = await contract.decimals();
-        const convertValue = Number(
-          ethers.utils.formatUnits(currentBalance.toString(), decimals)
-        ).toFixed(3);
-        setUserBalance(currentBalance);
-        setConvertUserBalance(convertValue);
-      } else if (userToken.contractAddress === "0x") {
-        const currentBalance = await provider.getBalance(accountAddress);
-        const convertValue = Number(
-          ethers.utils.formatUnits(currentBalance.toString())
-        ).toFixed(3);
-        setUserBalance(currentBalance);
-        setConvertUserBalance(convertValue);
+      if (chainId && accountAddress && userToken) {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        if (
+          userToken.contractAddress !== "0x" &&
+          userToken.contractAddress !== undefined &&
+          userToken.contractAddress !== ""
+        ) {
+          const contract = new ethers.Contract(
+            userToken.contractAddress,
+            abiERC20,
+            provider
+          );
+          const currentBalance = await contract.balanceOf(accountAddress);
+          const decimals = await contract.decimals();
+          const convertValue = Number(
+            ethers.utils.formatUnits(currentBalance.toString(), decimals)
+          ).toFixed(3);
+          setUserBalance(currentBalance);
+          setConvertUserBalance(convertValue);
+        } else if (userToken.contractAddress === "0x") {
+          const currentBalance = await provider.getBalance(accountAddress);
+          const convertValue = Number(
+            ethers.utils.formatUnits(currentBalance.toString())
+          ).toFixed(3);
+          setUserBalance(currentBalance);
+          setConvertUserBalance(convertValue);
+        }
       }
     })();
   }, [userToken, accountAddress, value, chainId, txStatus]);
@@ -159,8 +163,10 @@ function MainFunctionality({ chainId, accountAddress }) {
             apyTokens[bestApyChain][bestApyToken], //bestAPYToken
             fee
           );
+          setResponseStatus(true);
           await txDeposit.wait();
           setTxStatus(true);
+          setResponseStatus(false);
           break;
         } catch (err) {
           if (err.reason === "user rejected transaction") {
@@ -180,8 +186,10 @@ function MainFunctionality({ chainId, accountAddress }) {
               value: value,
             }
           );
+          setResponseStatus(true);
           await txDeposit.wait();
           setTxStatus(true);
+          setResponseStatus(false);
           break;
         } catch (err) {
           if (err.reason === "user rejected transaction") {
@@ -235,7 +243,7 @@ function MainFunctionality({ chainId, accountAddress }) {
       />
       {chainId === "" ? null : value === "" ||
         value === 0 ||
-        value.eq(constants.Zero) ? null : chainId !== bestApyChain ? ( //for test set  31337
+        value.eq(constants.Zero) ? null : chainId !== bestApyChain ? ( //for test set 31337
         <div className="buttons">
           {value !== "" && (
             <Bridge
@@ -250,17 +258,21 @@ function MainFunctionality({ chainId, accountAddress }) {
         </div>
       ) : userBalance.gte(value) ? (
         <div className="buttons">
-          {!txStatus ? (
+          {!txStatus && !responseStatus ? (
             <div className="depositButton">
               <button className="deposit" onClick={createTransaction}>
                 Deposit
               </button>
             </div>
-          ) : (
+          ) : !responseStatus ? (
             <div className="successButton">
               <button className="deposit success" onClick={changeTxStatus}>
                 Successfully deposited <img src={image} alt="" />
               </button>
+            </div>
+          ) : (
+            <div className="depositButton">
+              <button className="deposit">Waiting...</button>
             </div>
           )}
         </div>

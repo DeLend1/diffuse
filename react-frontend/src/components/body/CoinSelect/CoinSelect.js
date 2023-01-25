@@ -22,9 +22,14 @@ function CoinSelect({ chainId, addUserToken, mode, userToken }) {
     let resetValue;
     if (chainId && Object.keys(options).includes(chainId.toString())) {
       if (userToken) {
-        resetValue = options[chainId].find(
+        const sameTokenInOtherChain = options[chainId].find(
           (token) => token.label === userToken.label
         );
+        if (sameTokenInOtherChain) {
+          resetValue = sameTokenInOtherChain;
+        } else {
+          resetValue = options[chainId][0];
+        }
       } else {
         resetValue = options[chainId][0];
       }

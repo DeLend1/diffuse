@@ -17,6 +17,7 @@ function WithdrawFunc({ chainId, accountAddress }) {
   const [userBalance, setUserBalance] = useState(constants.Zero);
   const [convertUserBalance, setConvertUserBalance] = useState("");
   const [txStatus, setTxStatus] = useState(false);
+  const [responseStatus, setResponseStatus] = useState(false);
 
   const protocolAddress = protocolAddresses[chainId];
 
@@ -57,8 +58,9 @@ function WithdrawFunc({ chainId, accountAddress }) {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       try {
         if (
+          userToken.contractAddress &&
           userToken.contractAddress !== "0x" &&
-          userToken.contractAddress !== undefined
+          userToken.contractAddress !== ""
         ) {
           const contract = new ethers.Contract(
             userToken.contractAddress,
@@ -151,7 +153,9 @@ function WithdrawFunc({ chainId, accountAddress }) {
       userToken.contractAddress,
       value
     );
+    setResponseStatus(true);
     await txWithdraw.wait();
+    setResponseStatus(false);
   }
 
   //function for "withdraw button"
@@ -193,17 +197,21 @@ function WithdrawFunc({ chainId, accountAddress }) {
         value === 0 ||
         value.eq(constants.Zero) ? null : userBalance.gte(value) ? (
         <div className="buttons">
-          {!txStatus ? (
+          {!txStatus && !responseStatus ? (
             <div className="withdrawButton">
               <button className="withdraw" onClick={createTransaction}>
                 Withdraw
               </button>
             </div>
-          ) : (
+          ) : !responseStatus ? (
             <div className="successButton">
               <button className="deposit success" onClick={changeTxStatus}>
                 Successfully withdrawed <img src={image} alt="" />
               </button>
+            </div>
+          ) : (
+            <div className="depositButton">
+              <button className="deposit">Waiting...</button>
             </div>
           )}
         </div>
@@ -213,7 +221,7 @@ function WithdrawFunc({ chainId, accountAddress }) {
             <div className="buttons">
               <div className="successButton">
                 <button className="deposit success" onClick={changeTxStatus}>
-                  Successfully deposited <img src={image} alt="" />
+                  Successfully withdrowed <img src={image} alt="" />
                 </button>
               </div>
             </div>
