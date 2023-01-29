@@ -122,7 +122,7 @@ const Bridge = ({
       await changeNetwork();
       setResponseStatus(false);
       window.alert(
-        "Transaction completed!\nPlease wait until the tokens are credited to your account.\nThis may take about 5 minutes."
+        "Transaction completed!\nPlease wait until the tokens get to your account.\nThis may take about 5 minutes."
       );
     } catch (err) {
       console.log(err);
@@ -131,12 +131,6 @@ const Bridge = ({
 
   return (
     <>
-      <p>
-        To deposit this asset choose a chain with the best APY or use a bridge!
-      </p>
-      <button className="approveBridge" onClick={changeNetwork}>
-        Change Network
-      </button>
       {possibleBridgeTokens.indexOf(userToken.label) !== -1 &&
       !value.eq(constants.Zero) &&
       userBalance.gte(value) ? (
@@ -147,7 +141,7 @@ const Bridge = ({
                 <p>
                   <br />
                   The bridge commission exceeds the amount entered!
-                  <br /> Transaction not possible!
+                  <br /> Transaction is not possible!
                 </p>
               ) : (
                 <p>
@@ -160,7 +154,7 @@ const Bridge = ({
             <>
               <p>
                 <br />
-                {`You will recieved: ${convertEstimatedValue} ${userToken.label} on ${chainIds[bestApyChain]}`}
+                {`You will receive: ${convertEstimatedValue} ${userToken.label} on ${chainIds[bestApyChain]}`}
               </p>
               {!responseStatus ? (
                 <button className="bridgeTrans" onClick={makeBridge}>
@@ -173,6 +167,13 @@ const Bridge = ({
           )}
         </div>
       ) : null}
+      <p>
+        To deposit this asset choose a chain with the best APY or use a bridge!
+      </p>
+      <button className="approveBridge" onClick={changeNetwork}>
+        Change Network
+      </button>
+      
     </>
   );
 };
