@@ -13,7 +13,7 @@ const MainLayout = ({
       <header className="header">
         <div className="leftHeader">
           <img src={image} alt="" />
-          <h1>DeLend</h1>
+          <h1>Diffuse</h1>
         </div>
         <ConnectWalletButton
           connectButtonClass="button1"
