@@ -189,7 +189,7 @@ function WithdrawFunc({ chainId, accountAddress }) {
       <ValueInput addUserValue={addUserValueHandler} />
       {convertUserBalance !== "" && userToken ? (
         <div className="balance">
-          <p>{`Your balance: ${convertUserBalance} ${userToken.label}`}</p>
+          <p>{`Your deposited balance: ${convertUserBalance} ${userToken.label}`}</p>
         </div>
       ) : null}
 
@@ -206,12 +206,12 @@ function WithdrawFunc({ chainId, accountAddress }) {
           ) : !responseStatus ? (
             <div className="successButton">
               <button className="deposit success" onClick={changeTxStatus}>
-                Successfully withdrawed <img src={image} alt="" />
+                Successful withdrawal <img src={image} alt="" />
               </button>
             </div>
           ) : (
             <div className="depositButton">
-              <button className="deposit">Waiting...</button>
+              <button className="deposit">Loading...</button>
             </div>
           )}
         </div>
@@ -221,7 +221,7 @@ function WithdrawFunc({ chainId, accountAddress }) {
             <div className="buttons">
               <div className="successButton">
                 <button className="deposit success" onClick={changeTxStatus}>
-                  Successfully withdrowed <img src={image} alt="" />
+                  Successful withdrawal <img src={image} alt="" />
                 </button>
               </div>
             </div>

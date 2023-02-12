@@ -11,10 +11,13 @@ const MainLayout = ({
   return (
     <>
       <header className="header">
-        <div className="leftHeader">
-          <img src={image} alt="" />
-          <h1>Diffuse</h1>
-        </div>
+        <div className="leftPart">
+          <div className="leftHeader">
+            <img src={image} alt="" />
+            <h1>Diffuse</h1>
+          </div>
+          <Menu />
+          </div>
         <ConnectWalletButton
           connectButtonClass="button1"
           onChangeAddress={addressChanged}
@@ -23,7 +26,7 @@ const MainLayout = ({
           chainId={networkChainId}
         />
       </header>
-      <Menu />
+      
       <Outlet />
     </>
   );

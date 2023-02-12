@@ -2,12 +2,12 @@ import { NavLink } from "react-router-dom";
 
 const Menu = () => {
   return (
-    <nav>
+    <nav className="navButtons">
       <NavLink to="." end>
-        Deposit
+        <span id="deposit">Deposit</span>
       </NavLink>
       <NavLink to="/withdraw" end>
-        Withdraw
+      <span id="withdraw">Withdraw</span>
       </NavLink>
     </nav>
   );

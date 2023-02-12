@@ -39,6 +39,30 @@ header {
   align-items: center;
 }
 
+.leftPart {
+  display: flex;
+}
+
+/*Deposit and Withdrawal Buttons */
+
+.navButtons {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+
+}
+
+
+
+#deposit {
+  
+
+}
+
+#withdraw {
+  margin-left: 10px;
+}
+
 header h1 {
   font-weight: bold;
   font-size: 24px;
