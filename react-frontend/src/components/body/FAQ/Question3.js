@@ -1,38 +1,34 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import { useState } from "react";
 
-export class Question3 extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { text: false };
-    this.showText = this.showText.bind(this);
+function Question3() {
+  const [text, setText] = useState(false);
+
+  function showText() {
+    setText(!text);
   }
-  showText() {
-    if (this.state.text == false) {
-      this.setState({ text: true });
-    } else {
-      this.setState({ text: false });
-    }
-  }
-  render() {
-    if (this.state.text == false) {
-      return (
+  return (
+    <>
+      {!text ? (
         <div className="div1">
-          <button className="q-Button" onClick={this.showText}>
+          <button className="q-Button" onClick={showText}>
             Is it safe?
           </button>
         </div>
-      );
-    } else {
-      return (
+      ) : (
         <div className="div1">
-          <button className="q-Button" onClick={this.showText}>
+          <button className="q-Button" onClick={showText}>
             Is it safe?
           </button>
-          <h1 className="text">As Diffuse provides only highly efficient aggregation service, it`s absolutely save to use Diffuse as the app doesnt store any assets.
-           Risks are only related to DeFi protocols which are being aggregated by Diffuse. </h1>
+          <h1 className="text">
+            As Diffuse provides only highly efficient aggregation service, it`s
+            absolutely save to use Diffuse as the app doesnt store any assets.
+            Risks are only related to DeFi protocols which are being aggregated
+            by Diffuse.
+          </h1>
         </div>
-      );
-    }
-  }
+      )}
+    </>
+  );
 }
+
+export default Question3;

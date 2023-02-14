@@ -1,40 +1,32 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import { useState } from "react";
 
-export class Question1 extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { text: false, gold: "pat" };
-    this.showText = this.showText.bind(this);
+function Question1() {
+  const [text, setText] = useState(false);
+
+  function showText() {
+    setText(!text);
   }
-  showText() {
-    if (this.state.text == false) {
-      this.setState({ text: true });
-    } else {
-      this.setState({ text: false });
-    }
-  }
-  
-  render() {
-    if (this.state.text == false) {
-      return (
+  return (
+    <>
+      {!text ? (
         <div className="div1">
-          <button className="q-Button" onClick={this.showText}>
+          <button className="q-Button" onClick={showText}>
             How does Diffuse work?
           </button>
         </div>
-      );
-    } else {
-      return (
+      ) : (
         <div className="div1">
-          <button className="q-Button" onClick={this.showText}>
+          <button className="q-Button" onClick={showText}>
             How does Diffuse work?
           </button>
           <h1 className="text">
-            Diffuse helps to deposit preffered assets to lending protocols with the best rate(APY) in several clicks
+            Diffuse helps to deposit preffered assets to lending protocols with
+            the best rate(APY) in several clicks
           </h1>
         </div>
-      );
-    }
-  }
+      )}
+    </>
+  );
 }
+
+export default Question1;

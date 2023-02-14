@@ -1,5 +1,6 @@
 import Withdraw from "./Withdraw/Withdraw";
 import ConnectWalletButton from "../header/ConnectWalletButton";
+import FAQ from "./FAQ/FAQ";
 
 const WithdrawPage = ({
   accountAddress,
@@ -20,6 +21,7 @@ const WithdrawPage = ({
           chainId={networkChainId}
         />
       </div>
+      <FAQ />
     </div>
   );
 };

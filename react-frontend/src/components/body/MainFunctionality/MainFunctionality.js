@@ -119,12 +119,6 @@ function MainFunctionality({ chainId, accountAddress }) {
     })();
   }, [userToken, accountAddress, value, chainId, txStatus]);
 
-  //refresh input data
-  useEffect(() => {
-    setValue("");
-    setUserBalance("");
-  }, [chainId, accountAddress]);
-
   // change tx status
   useEffect(() => {
     setTxStatus(false);
@@ -206,11 +200,9 @@ function MainFunctionality({ chainId, accountAddress }) {
   async function createTransaction() {
     if (approvalBalance.gte(value)) {
       await deposit();
-      
     } else {
       await approve();
       await deposit();
-      
     }
   }
 

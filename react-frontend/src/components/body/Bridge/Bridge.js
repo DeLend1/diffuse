@@ -168,12 +168,11 @@ const Bridge = ({
         </div>
       ) : null}
       <p>
-        To deposit this asset choose a chain with the best APY or use a bridge!
+        {`To deposit this asset choose a chain ${chainIds[bestApyChain]} with the best APY or use a bridge!`}
       </p>
       <button className="approveBridge" onClick={changeNetwork}>
         Change Network
       </button>
-      
     </>
   );
 };
