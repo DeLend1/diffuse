@@ -45,23 +45,38 @@ header {
 
 /*Deposit and Withdrawal Buttons */
 
+.navlink {
+  font-size: 16px;
+  color: rgb(90, 95, 102);
+  text-decoration: none;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 6px;
+  cursor: pointer;
+
+}
+
+
+.navlink:hover {
+  color: rgb(0, 0, 0);
+  transition: all 0.5s;
+  transform: scale(1.05);
+}
+
+.active {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+}
+
 .navButtons {
   display: flex;
   align-items: center;
   margin-left: 20px;
+  font-weight: bold;
 
 }
 
 
-
-#deposit {
-  
-
-}
-
-#withdraw {
-  margin-left: 10px;
-}
 
 header h1 {
   font-weight: bold;
@@ -167,6 +182,11 @@ header h1 {
   background: #eeeeee;
   border-color: #eeeeee;
   color: black;
+}
+
+.value:hover {
+  border-color: rgb(68, 67, 67);
+  transition: all 1s;
 }
 
 .amount {

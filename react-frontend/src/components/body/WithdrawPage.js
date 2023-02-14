@@ -10,7 +10,7 @@ const WithdrawPage = ({
   return (
     <div className="body">
       <div className="main">
-        <h1>Withdraw deposited assets</h1>
+        <h1>Withdraw your assets</h1>
         <Withdraw chainId={networkChainId} accountAddress={accountAddress} />
         <ConnectWalletButton
           connectButtonClass="button2"

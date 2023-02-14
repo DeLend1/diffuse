@@ -3,11 +3,11 @@ import { NavLink } from "react-router-dom";
 const Menu = () => {
   return (
     <nav className="navButtons">
-      <NavLink to="." end>
-        <span id="deposit">Deposit</span>
+      <NavLink to="." end className="navlink">
+        Deposit
       </NavLink>
-      <NavLink to="/withdraw" end>
-      <span id="withdraw">Withdraw</span>
+      <NavLink to="/withdraw" end className="navlink">
+        Withdraw
       </NavLink>
     </nav>
   );
