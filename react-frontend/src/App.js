@@ -5,6 +5,8 @@ import MainLayout from "./layouts/MainLayout";
 import MainPage from "./components/body/MainPage";
 import WithdrawPage from "./components/body/WithdrawPage";
 
+
+
 function App() {
   const [accountAddress, setAccountAddress] = useState("");
   const [networkChainId, setNetworkChainId] = useState("");
@@ -41,6 +43,7 @@ function App() {
                   addressChanged={addressChanged}
                   chainIdChanged={chainIdChanged}
                 />
+                
               }
             />
             <Route
@@ -52,6 +55,7 @@ function App() {
                   addressChanged={addressChanged}
                   chainIdChanged={chainIdChanged}
                 />
+                
               }
             />
           </Route>

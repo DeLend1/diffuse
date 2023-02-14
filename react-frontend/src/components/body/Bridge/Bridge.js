@@ -122,7 +122,7 @@ const Bridge = ({
       await changeNetwork();
       setResponseStatus(false);
       window.alert(
-        "Transaction completed!\nPlease wait until the tokens get to your account.\nThis may take about 5 minutes."
+        "Transaction completed!\nPlease wait until your tokens get to your account.\nThis may take about 5 minutes."
       );
     } catch (err) {
       console.log(err);
@@ -140,7 +140,7 @@ const Bridge = ({
               {!responseFeeStatus ? (
                 <p>
                   <br />
-                  The bridge commission exceeds the amount entered!
+                  The bridge commission exceeds the entered amount!
                   <br /> Transaction is not possible!
                 </p>
               ) : (

@@ -1,6 +1,7 @@
 import MainFunctionality from "./MainFunctionality/MainFunctionality";
 import ConnectWalletButton from "../header/ConnectWalletButton";
 
+
 const MainPage = ({
   accountAddress,
   networkChainId,
@@ -24,6 +25,8 @@ const MainPage = ({
         />
       </div>
     </div>
+    
+
   );
 };
 

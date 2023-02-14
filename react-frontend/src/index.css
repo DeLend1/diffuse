@@ -49,8 +49,8 @@ header {
   font-size: 16px;
   color: rgb(90, 95, 102);
   text-decoration: none;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
   margin-top: 6px;
   cursor: pointer;
 
@@ -63,6 +63,11 @@ header {
   transform: scale(1.05);
 }
 
+.navlink:active {
+  transform: translateY(2px);
+  transition-duration: 0.35s;
+}
+
 .active {
   color: rgb(0, 0, 0);
   text-decoration: none;
@@ -71,7 +76,7 @@ header {
 .navButtons {
   display: flex;
   align-items: center;
-  margin-left: 20px;
+  margin-left: 30px;
   font-weight: bold;
 
 }

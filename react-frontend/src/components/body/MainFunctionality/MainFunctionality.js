@@ -206,11 +206,11 @@ function MainFunctionality({ chainId, accountAddress }) {
   async function createTransaction() {
     if (approvalBalance.gte(value)) {
       await deposit();
-      setTxStatus(true);
+      
     } else {
       await approve();
       await deposit();
-      setTxStatus(true);
+      
     }
   }
 
