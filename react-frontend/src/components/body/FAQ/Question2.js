@@ -15,15 +15,13 @@ function Question2() {
           </button>
         </div>
       ) : (
-        <div className="faq">
-          <button className="q-Button" onClick={showText}>
+        <div className="faqActive">
+          <button className="q-ButtonActive" onClick={showText}>
             What specific steps does Diffuse take?
           </button>
           <p className="text">
-            Diffuse scans different protocols across all chains to find the best
-            rate(APY) for your chosen asset. Then the app bridges your assets to
-            required chain, swap assets to required and make a deposit into a
-            protocol with the best interest rate.
+          First, Diffuse scans various protocols across all chains to find the most favorable APY rate for your selected asset. 
+          Next, the app bridges your assets to the necessary chain, exchanges assets if required, and deposits them into the protocol offering the highest interest rate.
           </p>
         </div>
       )}

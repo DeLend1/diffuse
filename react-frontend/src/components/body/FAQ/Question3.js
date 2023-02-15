@@ -15,15 +15,13 @@ function Question3() {
           </button>
         </div>
       ) : (
-        <div className="faq">
-          <button className="q-Button" onClick={showText}>
+        <div className="faqActive">
+          <button className="q-ButtonActive" onClick={showText}>
             Is it safe?
           </button>
           <p className="text">
-            As Diffuse provides only highly efficient aggregation service, it`s
-            absolutely save to use Diffuse as the app doesnt store any assets.
-            Risks are only related to DeFi protocols which are being aggregated
-            by Diffuse.
+          Because Diffuse is solely an efficient aggregation service, it is entirely safe to use, as it doesn't store any assets.
+           The only risks involved are related to the DeFi protocols that Diffuse aggregates.
           </p>
         </div>
       )}

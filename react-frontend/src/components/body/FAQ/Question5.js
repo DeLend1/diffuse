@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Question1() {
+function Question4() {
   const [text, setText] = useState(false);
 
   function showText() {
@@ -11,16 +11,18 @@ function Question1() {
       {!text ? (
         <div className="faq">
           <button className="q-Button" onClick={showText}>
-            How does Diffuse work?
+            How to contact you?
           </button>
         </div>
       ) : (
         <div className="faqActive">
           <button className="q-ButtonActive" onClick={showText}>
-            How does Diffuse work?
+          How to contact you?
           </button>
           <p className="text">
-          Essentially, Diffuse streamlines the process of depositing your preferred assets into lending protocols that offer the highest APY rates, all with just a few clicks.
+            Feel free to ask any questions/share ideas <br></br>
+            <b>ilya@diffuse.space</b>
+
           </p>
         </div>
       )}
@@ -28,4 +30,4 @@ function Question1() {
   );
 }
 
-export default Question1;
+export default Question4;

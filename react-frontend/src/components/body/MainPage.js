@@ -24,7 +24,7 @@ const MainPage = ({
           chainId={networkChainId}
         />
       </div>
-      <h2 class="faqh1">FAQ</h2>
+      <h2 class="faqh1">FAQs</h2>
       
         <FAQ />
       

@@ -21,7 +21,7 @@ const WithdrawPage = ({
           chainId={networkChainId}
         />
       </div>
-      <h1 class="faqh1">FAQ</h1>
+      <h1 class="faqh1">FAQs</h1>
       <FAQ />
     </div>
   );

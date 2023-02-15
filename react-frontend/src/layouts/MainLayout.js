@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Menu from "../components/header/Menu";
 import ConnectWalletButton from "../components/header/ConnectWalletButton";
-import image from "../logonew.png";
+import image from "../logonew1.png";
 const MainLayout = ({
   accountAddress,
   networkChainId,
@@ -14,7 +14,7 @@ const MainLayout = ({
         <div className="leftPart">
           <div className="leftHeader">
             <img src={image} alt="" />
-            <h1>Diffuse</h1>
+            
           </div>
           <Menu />
           </div>

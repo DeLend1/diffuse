@@ -6,25 +6,24 @@
 }
 
 body {
-  font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+  font-size:14px;
+  font-family: "Manrope", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
     "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 
-  background: linear-gradient(
-      180deg,
-      rgba(100, 218, 255, 0.9) 0%,
-      rgba(249, 253, 255, 0.12) 77.25%
-    )
+  background: linear-gradient(180deg, rgba(247, 250, 255, 0.9) 0%, rgba(188, 213, 255, 0.3) 100.13%)
+    
     fixed;
 }
 
 /*Header */
 
 header {
+  
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  padding: 10px 40px;
+  padding: 0 40px;
   margin: auto;
 }
 
@@ -41,13 +40,14 @@ header {
 
 .leftPart {
   display: flex;
+  margin-left: 100px;
 }
 
 /*Deposit and Withdrawal Buttons */
 
 .navlink {
   font-size: 16px;
-  color: rgb(90, 95, 102);
+  color: #5d6785;
   text-decoration: none;
   margin-left: 20px;
   margin-right: 20px;
@@ -58,7 +58,7 @@ header {
 
 
 .navlink:hover {
-  color: rgb(0, 0, 0);
+  color: #2C698D;
   transition: all 0.5s;
   transform: scale(1.05);
 }
@@ -69,7 +69,7 @@ header {
 }
 
 .active {
-  color: rgb(0, 0, 0);
+  color: #265DEC;
   text-decoration: none;
 }
 
@@ -109,6 +109,7 @@ header h1 {
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
     rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   cursor: pointer;
+  margin-right: 100px;
 }
 
 .button1:hover {
@@ -187,6 +188,7 @@ header h1 {
   background: #eeeeee;
   border-color: #eeeeee;
   color: black;
+  margin-bottom: 16px;
 }
 
 .value:hover {
@@ -225,7 +227,7 @@ header h1 {
 
 .divAPY {
   display: flex;
-  margin: 16px 0px;
+  margin-bottom: 16px;
   font-weight: 400;
   font-size: 12px;
   line-height: 1.6em;
@@ -271,7 +273,7 @@ header h1 {
   text-align: center;
   display: flex;
   justify-content: center;
-  margin: 0px;
+  
   border: none;
   outline: none;
   white-space: nowrap;
@@ -350,6 +352,7 @@ header h1 {
   align-items: center;
   flex-shrink: 1;
   overflow: hidden;
+  margin-right: 100px;
 }
 
 .chainId {
@@ -698,19 +701,32 @@ header h1 {
 }
 
 .faq-container {
-  margin: 0 auto;
+  margin: 0 auto 50px auto;
   max-width: 700px;
 }
 
 .faq {
-  background-color: transparent;
-  border: 1px solid #9FA4A8;
+  background-color: rgba(217, 228, 248, 0.75);
+  
   border-radius: 10px;
   padding: 5px;
   position: relative;
   overflow: hidden;
   margin: 10px 0;
   transition: 0.3s ease;
+}
+
+.faqActive {
+  background-color: white;
+  
+  border-radius: 10px;
+  padding: 5px;
+  position: relative;
+  overflow: hidden;
+  margin: 10px 0;
+  transition: 0.3s ease;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.1);
+
 }
 
 .faq:hover {
@@ -723,32 +739,57 @@ header h1 {
   width: 100%;
     padding: 1.6rem 2rem;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
-    background: inherit;
+    background: none;
     border: none;
     outline: none;
     text-align: left;
-    transition: all 0.5s linear;
+    transition: all 0.2s linear;
   
 }
 
 .q-Button:after {
-  content: "\2192";
+  content: "\271A";
     color: #1366d6;
     float: right;
-    transition: all 0.3s linear;
+    transition: all 0.2s linear;
+    
 }
 
+.q-ButtonActive {
+  width: 100%;
+    padding: 1.6rem 2rem;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    background: none;
+    border: none;
+    outline: none;
+    text-align: left;
+    transition: all 0.2s linear;
 
+}
+
+.q-ButtonActive:after {
+  content: "\2716";
+    color: #1366d6;
+    float: right;
+    transition: all 0.2s linear;
+    
+    
+}
 
 .text {
+  display: block;
   
     color: rgba(0,0,0,0.75);
     font-size: 14px;
-    margin: 0 2rem;
-    padding-left: 1rem;
+    margin: auto;
+    padding: 0.5rem 2rem 1.6rem 2rem;
     overflow: hidden;
     transition: max-height 0.3s ease-in-out;
+    line-height: 1.6rem;
     
 }
 
