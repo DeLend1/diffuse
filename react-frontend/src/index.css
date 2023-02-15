@@ -713,6 +713,12 @@ header h1 {
   transition: 0.3s ease;
 }
 
+.faq:hover {
+  border-color: rgb(68, 67, 67);
+  transition: all 1s;
+  border: 1.5px solid;
+}
+
 .q-Button {
   width: 100%;
     padding: 1.6rem 2rem;
