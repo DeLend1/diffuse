@@ -24,7 +24,10 @@ const MainPage = ({
           chainId={networkChainId}
         />
       </div>
-      <FAQ />
+      <h2 class="faqh1">FAQ</h2>
+      
+        <FAQ />
+      
     </div>
   );
 };

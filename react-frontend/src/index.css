@@ -686,3 +686,63 @@ header h1 {
 .iconAsset {
   margin-right: 7px;
 }
+
+
+/* FAQ section */
+
+
+.faqh1 {
+  margin-top: 50px;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.faq-container {
+  margin: 0 auto;
+  max-width: 700px;
+}
+
+.faq {
+  background-color: transparent;
+  border: 1px solid #9FA4A8;
+  border-radius: 10px;
+  padding: 5px;
+  position: relative;
+  overflow: hidden;
+  margin: 10px 0;
+  transition: 0.3s ease;
+}
+
+.q-Button {
+  width: 100%;
+    padding: 1.6rem 2rem;
+    font-size: 16px;
+    cursor: pointer;
+    background: inherit;
+    border: none;
+    outline: none;
+    text-align: left;
+    transition: all 0.5s linear;
+  
+}
+
+.q-Button:after {
+  content: "\2192";
+    color: #1366d6;
+    float: right;
+    transition: all 0.3s linear;
+}
+
+
+
+.text {
+  
+    color: rgba(0,0,0,0.75);
+    font-size: 14px;
+    margin: 0 2rem;
+    padding-left: 1rem;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    
+}
+

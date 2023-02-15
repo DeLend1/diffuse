@@ -9,20 +9,20 @@ function Question1() {
   return (
     <>
       {!text ? (
-        <div className="div1">
+        <div className="faq">
           <button className="q-Button" onClick={showText}>
             How does Diffuse work?
           </button>
         </div>
       ) : (
-        <div className="div1">
+        <div className="faq">
           <button className="q-Button" onClick={showText}>
             How does Diffuse work?
           </button>
-          <h1 className="text">
+          <p className="text">
             Diffuse helps to deposit preffered assets to lending protocols with
             the best rate(APY) in several clicks
-          </h1>
+          </p>
         </div>
       )}
     </>

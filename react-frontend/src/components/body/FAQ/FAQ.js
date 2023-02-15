@@ -4,7 +4,7 @@ import Question3 from "./Question3";
 import Question4 from "./Question4";
 function FAQ() {
   return (
-    <div className="faq">
+    <div className="faq-container">
       <Question1 />
       <Question2 />
       <Question3 />

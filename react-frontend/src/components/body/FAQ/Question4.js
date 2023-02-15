@@ -9,20 +9,20 @@ function Question4() {
   return (
     <>
       {!text ? (
-        <div className="div1">
+        <div className="faq">
           <button className="q-Button" onClick={showText}>
             Is it ok if I need to sign many transactions in my wallet?
           </button>
         </div>
       ) : (
-        <div className="div1">
+        <div className="faq">
           <button className="q-Button" onClick={showText}>
             Is it ok if I need to sign many transactions in my wallet?
           </button>
-          <h1 className="text">
+          <p className="text">
             Yes, all wallet pop-ups are only required to allow bridges and DEXes
             to operate with your chosen assets
-          </h1>
+          </p>
         </div>
       )}
     </>
