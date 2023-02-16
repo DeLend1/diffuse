@@ -11,16 +11,19 @@ function Question1() {
       {!text ? (
         <div className="faq">
           <button className="q-Button" onClick={showText}>
-            How does Diffuse work?
+            What is Diffuse.Space?
+
           </button>
         </div>
       ) : (
         <div className="faqActive">
           <button className="q-ButtonActive" onClick={showText}>
-            How does Diffuse work?
+            What is Diffuse.Space?
+
           </button>
           <p className="text">
-          Essentially, Diffuse streamlines the process of depositing your preferred assets into lending protocols that offer the highest APY rates, all with just a few clicks.
+          Diffuse.Space is an aggregator built to simplify depositing experience for end users enabling them to benefit from <b>the highest APY rates</b> available.
+
           </p>
         </div>
       )}

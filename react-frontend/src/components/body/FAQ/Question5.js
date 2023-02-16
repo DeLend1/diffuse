@@ -11,17 +11,18 @@ function Question4() {
       {!text ? (
         <div className="faq">
           <button className="q-Button" onClick={showText}>
-            How to contact you?
+            Would like to connect or discuss partnership?
+
           </button>
         </div>
       ) : (
         <div className="faqActive">
           <button className="q-ButtonActive" onClick={showText}>
-          How to contact you?
+            Would like to connect or discuss partnership?
+
           </button>
           <p className="text">
-            Feel free to ask any questions/share ideas <br></br>
-            <b>ilya@diffuse.space</b>
+            Ping us at <b>hello@diffuse.space</b>
 
           </p>
         </div>

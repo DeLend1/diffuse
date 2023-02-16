@@ -229,10 +229,9 @@ header h1 {
   display: flex;
   margin-bottom: 16px;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.6em;
   position: relative;
-
   border-width: 1px;
   border-style: solid;
   border-image: initial;
@@ -353,6 +352,7 @@ header h1 {
   flex-shrink: 1;
   overflow: hidden;
   margin-right: 100px;
+  
 }
 
 .chainId {
@@ -360,11 +360,11 @@ header h1 {
   border: none;
   display: flex;
   align-items: center;
-  background: #f2f4f6;
+  background: #3b82f6;
+  color: rgb(242, 241, 241);
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
   rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
   rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-  color: #7a8aa0;
   max-width: 100%;
   box-sizing: border-box;
   overflow: hidden;
@@ -380,7 +380,8 @@ header h1 {
   border: none;
   display: flex;
   align-items: center;
-  background: #f2f4f6;
+  background: #3b82f6;
+  
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
   rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
   rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
@@ -396,6 +397,7 @@ header h1 {
 .address {
   flex-shrink: 1;
   overflow: hidden;
+  color: rgb(242, 241, 241);
   text-overflow: ellipsis;
   font-size: 16px;
   width: 100px;
