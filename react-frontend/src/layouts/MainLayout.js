@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Menu from "../components/header/Menu";
 import ConnectWalletButton from "../components/header/ConnectWalletButton";
-import image from "../logonew1.png";
+import image from "../logonew_new.png";
 const MainLayout = ({
   accountAddress,
   networkChainId,
@@ -14,10 +14,9 @@ const MainLayout = ({
         <div className="leftPart">
           <div className="leftHeader">
             <img src={image} alt="" />
-            
           </div>
           <Menu />
-          </div>
+        </div>
         <ConnectWalletButton
           connectButtonClass="button1"
           onChangeAddress={addressChanged}
@@ -26,7 +25,7 @@ const MainLayout = ({
           chainId={networkChainId}
         />
       </header>
-      
+
       <Outlet />
     </>
   );

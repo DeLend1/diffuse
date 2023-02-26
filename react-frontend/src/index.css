@@ -6,19 +6,22 @@
 }
 
 body {
-  font-size:14px;
+  font-size: 14px;
   font-family: "Manrope", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
     "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 
-  background: linear-gradient(180deg, rgba(247, 250, 255, 0.9) 0%, rgba(188, 213, 255, 0.3) 100.13%)
-    
+  background: linear-gradient(
+      180deg,
+      rgba(247, 250, 255, 0.9) 0%,
+      rgba(188, 213, 255, 0.3) 100.13%
+    )
     fixed;
+  margin-top: 20px;
 }
 
 /*Header */
 
 header {
-  
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -53,12 +56,10 @@ header {
   margin-right: 20px;
   margin-top: 6px;
   cursor: pointer;
-
 }
 
-
 .navlink:hover {
-  color: #2C698D;
+  color: #2c698d;
   transition: all 0.5s;
   transform: scale(1.05);
 }
@@ -69,7 +70,7 @@ header {
 }
 
 .active {
-  color: #265DEC;
+  color: #265dec;
   text-decoration: none;
 }
 
@@ -78,10 +79,7 @@ header {
   align-items: center;
   margin-left: 30px;
   font-weight: bold;
-
 }
-
-
 
 header h1 {
   font-weight: bold;
@@ -157,8 +155,8 @@ header h1 {
   margin: 70px 0 0 0;
   padding: 32px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-  rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
-  rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   background: white;
   color: grey;
   text-align: center;
@@ -272,7 +270,7 @@ header h1 {
   text-align: center;
   display: flex;
   justify-content: center;
-  
+
   border: none;
   outline: none;
   white-space: nowrap;
@@ -352,7 +350,6 @@ header h1 {
   flex-shrink: 1;
   overflow: hidden;
   margin-right: 100px;
-  
 }
 
 .chainId {
@@ -363,8 +360,8 @@ header h1 {
   background: #3b82f6;
   color: rgb(242, 241, 241);
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-  rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
-  rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   max-width: 100%;
   box-sizing: border-box;
   overflow: hidden;
@@ -381,10 +378,10 @@ header h1 {
   display: flex;
   align-items: center;
   background: #3b82f6;
-  
+
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-  rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
-  rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   color: #7a8aa0;
   max-width: 100%;
   box-sizing: border-box;
@@ -672,29 +669,23 @@ header h1 {
   opacity: 1;
 }
 
-
 /* Success button */
 
 .deposit.success {
-  background-color:#0f6200;
-  
-  
+  background-color: #0f6200;
 }
 
 .tokenOption {
   display: flex;
   flex-direction: row;
   align-items: center;
-  
 }
 
 .iconAsset {
   margin-right: 7px;
 }
 
-
 /* FAQ section */
-
 
 .faqh1 {
   margin-top: 50px;
@@ -709,7 +700,7 @@ header h1 {
 
 .faq {
   background-color: rgba(217, 228, 248, 0.75);
-  
+
   border-radius: 10px;
   padding: 5px;
   position: relative;
@@ -720,15 +711,14 @@ header h1 {
 
 .faqActive {
   background-color: white;
-  
+
   border-radius: 10px;
   padding: 5px;
   position: relative;
   overflow: hidden;
   margin: 10px 0;
   transition: 0.3s ease;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.1);
-
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 .faq:hover {
@@ -739,59 +729,52 @@ header h1 {
 
 .q-Button {
   width: 100%;
-    padding: 1.6rem 2rem;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    background: none;
-    border: none;
-    outline: none;
-    text-align: left;
-    transition: all 0.2s linear;
-  
+  padding: 1.6rem 2rem;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+  text-align: left;
+  transition: all 0.2s linear;
 }
 
 .q-Button:after {
   content: "\271A";
-    color: #1366d6;
-    float: right;
-    transition: all 0.2s linear;
-    
+  color: #1366d6;
+  float: right;
+  transition: all 0.2s linear;
 }
 
 .q-ButtonActive {
   width: 100%;
-    padding: 1.6rem 2rem;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    background: none;
-    border: none;
-    outline: none;
-    text-align: left;
-    transition: all 0.2s linear;
-
+  padding: 1.6rem 2rem;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+  text-align: left;
+  transition: all 0.2s linear;
 }
 
 .q-ButtonActive:after {
   content: "\2716";
-    color: #1366d6;
-    float: right;
-    transition: all 0.2s linear;
-    
-    
+  color: #1366d6;
+  float: right;
+  transition: all 0.2s linear;
 }
 
 .text {
   display: block;
-  
-    color: rgba(0,0,0,0.75);
-    font-size: 14px;
-    margin: auto;
-    padding: 0.5rem 2rem 1.6rem 2rem;
-    overflow: hidden;
-    transition: max-height 0.3s ease-in-out;
-    line-height: 1.6rem;
-    
-}
 
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 14px;
+  margin: auto;
+  padding: 0.5rem 2rem 1.6rem 2rem;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+  line-height: 1.6rem;
+}

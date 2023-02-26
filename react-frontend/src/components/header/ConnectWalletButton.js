@@ -62,11 +62,6 @@ const ConnectWalletButton = ({
     };
   }, [onChangeChainId]);
 
-  if (!isMetaMaskInstalled()) {
-    window.alert(
-      "No wallet found. Please install MetaMask and refresh the page."
-    );
-  }
   if (address && chainIds[chainId]) {
     if (connectButtonClass === "button1") {
       return (
