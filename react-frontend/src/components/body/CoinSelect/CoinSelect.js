@@ -1,10 +1,16 @@
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Select from "react-select";
 
 import data1 from "../../../utils/coinsData.json";
 import data2 from "../../../utils/coinsDataWithdraw.json";
+import { loadUserToken } from "../../../store/interactions";
 
-function CoinSelect({ chainId, addUserToken, mode, userToken }) {
+function CoinSelect({ mode }) {
+  const userToken = useSelector((state) => state.userChoice.userToken);
+  const chainId = useSelector((state) => state.provider.chainId);
+  const dispatch = useDispatch();
+
   let options;
   if (mode) {
     options = data1;
@@ -15,8 +21,8 @@ function CoinSelect({ chainId, addUserToken, mode, userToken }) {
   const [value, setValue] = useState("");
 
   const handleChange = (selectedOption) => {
-    addUserToken(selectedOption);
     setValue(selectedOption);
+    loadUserToken(selectedOption, dispatch);
   };
   useEffect(() => {
     let resetValue;
@@ -41,8 +47,8 @@ function CoinSelect({ chainId, addUserToken, mode, userToken }) {
         img: "",
       };
     }
-    addUserToken(resetValue);
     setValue(resetValue);
+    loadUserToken(resetValue, dispatch);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chainId]);
 

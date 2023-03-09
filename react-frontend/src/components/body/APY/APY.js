@@ -1,4 +1,11 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  loadBestAPY,
+  loadEthereumAPY,
+  loadOptimismAPY,
+  loadPolygonAPY,
+} from "../../../store/interactions.js";
 
 import {
   ethContract,
@@ -12,24 +19,27 @@ import chainIds from "../../../utils/chainIds";
 import { ethers } from "ethers";
 import apyTokens from "../../../utils/apyTokens.json";
 
-export default function APY({ updateBestToken, updateBestChain }) {
-  const [bestApy, setBestApy] = useState("");
-  const [bestAsset, setBestAsset] = useState("");
-  const [bestChain, setBestChain] = useState("");
+export default function APY() {
+  const selectedChain = useSelector((state) => state.userChoice.selectedChain);
+
+  const bestApy = useSelector((state) => state.dataAPY[selectedChain].APY);
+  const bestAsset = useSelector((state) => state.dataAPY[selectedChain].asset);
+  const bestChain = useSelector((state) => state.dataAPY[selectedChain].chain);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
     (async function () {
-      //const ethAPY = await getAPYETH();
+      const ethAPY = await getAPYETH();
+      loadEthereumAPY(ethAPY, dispatch);
       const optAPY = await getAPYOPT();
+      loadOptimismAPY(optAPY, dispatch);
       const polAPY = await getAPYPOL();
-      const [apy, asset] = getBestAPY(/*ethAPY,*/ optAPY, polAPY);
-      setBestApy(apy);
-      setBestAsset(asset[0]);
-      setBestChain(asset[1]);
-      updateBestToken(asset[0]);
-      updateBestChain(asset[1]);
+      loadPolygonAPY(polAPY, dispatch);
+      const bestAPY = getBestAPY(/*ethAPY,*/ [optAPY, polAPY]);
+      loadBestAPY(bestAPY, dispatch);
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  });
 
   return (
     <div className="divAPY">
@@ -66,8 +76,11 @@ async function getAPYETH() {
     })
   );
   let maxAPYIndex = currentAPYETH.indexOf(Math.max(...currentAPYETH));
-  let result = {};
-  result[currentAPYETH[maxAPYIndex]] = [Object.keys(assets)[maxAPYIndex], 1];
+  let result = {
+    chain: 1,
+    asset: Object.keys(assets)[maxAPYIndex],
+    APY: currentAPYETH[maxAPYIndex],
+  };
   return result;
 }
 async function getAPYOPT() {
@@ -78,8 +91,11 @@ async function getAPYOPT() {
     })
   );
   let maxAPYIndex = currentAPYOPT.indexOf(Math.max(...currentAPYOPT));
-  let result = {};
-  result[currentAPYOPT[maxAPYIndex]] = [Object.keys(assets)[maxAPYIndex], 10];
+  let result = {
+    chain: 10,
+    asset: Object.keys(assets)[maxAPYIndex],
+    APY: currentAPYOPT[maxAPYIndex],
+  };
   return result;
 }
 async function getAPYPOL() {
@@ -90,17 +106,22 @@ async function getAPYPOL() {
     })
   );
   let maxAPYIndex = currentAPYPOL.indexOf(Math.max(...currentAPYPOL));
-  let result = {};
-  result[currentAPYPOL[maxAPYIndex]] = [Object.keys(assets)[maxAPYIndex], 137];
+  let result = {
+    chain: 137,
+    asset: Object.keys(assets)[maxAPYIndex],
+    APY: currentAPYPOL[maxAPYIndex],
+  };
   return result;
 }
-function getBestAPY(bestETH, bestOPT, bestPOL) {
-  const total = { ...bestETH, ...bestOPT, ...bestPOL };
-  const APYs = Object.keys(total).map((element) => {
-    return Number(element);
-  });
-  const maxAPY = Math.max(...APYs);
-  return [maxAPY, total[maxAPY]];
+function getBestAPY(array) {
+  let maxAPYObj = array[0];
+
+  for (let i = 1; i < array.length; i++) {
+    if (array[i].APY > maxAPYObj.APY) {
+      maxAPYObj = array[i];
+    }
+  }
+  return maxAPYObj;
 }
 
 async function getAPY(contract, address, index) {

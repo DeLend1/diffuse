@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import { Hop, Chain } from "@hop-protocol/sdk";
 import { ethers, constants } from "ethers";
@@ -6,14 +7,13 @@ import chainIds from "../../../utils/chainIds";
 import abiERC20 from "../../../utils/abiERC20.json";
 import chainParams from "../../../utils/chainsParams.json";
 
-const Bridge = ({
-  userToken,
-  bestApyChain,
-  chainId,
-  accountAddress,
-  value,
-  userBalance,
-}) => {
+const Bridge = ({ bestApyChain }) => {
+  const userToken = useSelector((state) => state.userChoice.userToken);
+  const chainId = useSelector((state) => state.provider.chainId);
+  const accountAddress = useSelector((state) => state.provider.address);
+  const value = useSelector((state) => state.userChoice.value);
+  const userBalance = useSelector((state) => state.userChoice.userBalance);
+
   const [approvalBalance, setApprovalBalance] = useState(constants.Zero);
   const [approvalAddress, setApprovalAddress] = useState("");
   const [estimatedValue, setEstimatedValue] = useState(constants.Zero);

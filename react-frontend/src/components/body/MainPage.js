@@ -2,32 +2,17 @@ import MainFunctionality from "./MainFunctionality/MainFunctionality";
 import ConnectWalletButton from "../header/ConnectWalletButton";
 import FAQ from "./FAQ/FAQ";
 
-const MainPage = ({
-  accountAddress,
-  networkChainId,
-  addressChanged,
-  chainIdChanged,
-}) => {
+const MainPage = () => {
   return (
     <div className="body">
       <div className="main">
         <h1>Deposit to Earn</h1>
-        <MainFunctionality
-          chainId={networkChainId}
-          accountAddress={accountAddress}
-        />
-        <ConnectWalletButton
-          connectButtonClass="button2"
-          onChangeAddress={addressChanged}
-          onChangeChainId={chainIdChanged}
-          address={accountAddress}
-          chainId={networkChainId}
-        />
+        <MainFunctionality />
+        <ConnectWalletButton connectButtonClass="button2" />
       </div>
-      <h2 class="faqh1">FAQs</h2>
-      
-        <FAQ />
-      
+      <h2 className="faqh1">FAQs</h2>
+
+      <FAQ />
     </div>
   );
 };

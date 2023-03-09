@@ -1,66 +1,17 @@
-import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import React from "react";
 import chainIds from "../../utils/chainIds";
+import { loadAccount } from "../../store/interactions";
 
-function isMetaMaskInstalled() {
-  return Boolean(window.ethereum);
-}
+const ConnectWalletButton = ({ connectButtonClass }) => {
+  const provider = useSelector((state) => state.provider.connection);
+  const chainId = useSelector((state) => state.provider.chainId);
+  const address = useSelector((state) => state.provider.address);
+  const dispatch = useDispatch();
 
-async function readAddress() {
-  const method = "eth_requestAccounts";
-  const accounts = await window.ethereum.request({
-    method,
-  });
-  return accounts[0];
-}
-
-const ConnectWalletButton = ({
-  onChangeAddress,
-  onChangeChainId,
-  connectButtonClass,
-  address,
-  chainId,
-}) => {
   const connectWallet = async () => {
-    const selectedAddress = await readAddress();
-    const selectedChainId = Number(window.ethereum.networkVersion);
-
-    onChangeAddress(selectedAddress);
-    onChangeChainId(selectedChainId);
+    await loadAccount(provider, dispatch);
   };
-
-  useEffect(() => {
-    onChangeAddress(window.ethereum?.selectedAddress);
-    onChangeChainId(Number(window.ethereum?.networkVersion));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    const eventName = `accountsChanged`;
-    if (!isMetaMaskInstalled()) {
-      return;
-    }
-    const listener = ([selectedAddress]) => {
-      onChangeAddress(selectedAddress);
-    };
-    window.ethereum.on(eventName, listener);
-    return () => {
-      window.ethereum.removeListener(eventName, listener);
-    };
-  }, [onChangeAddress]);
-
-  useEffect(() => {
-    const eventName = `chainChanged`;
-    if (!isMetaMaskInstalled()) {
-      return;
-    }
-    const listener = (selectedChainId) => {
-      onChangeChainId(Number(selectedChainId));
-    };
-    window.ethereum.on(eventName, listener);
-    return () => {
-      window.ethereum.removeListener(eventName, listener);
-    };
-  }, [onChangeChainId]);
 
   if (address && chainIds[chainId]) {
     if (connectButtonClass === "button1") {
@@ -89,9 +40,3 @@ const ConnectWalletButton = ({
   );
 };
 export default ConnectWalletButton;
-
-/*
-function getSelectedAddress() {
-  return window.ethereum?.selectedAddress;
-} 
-*/
